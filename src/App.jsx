@@ -9,12 +9,14 @@ import { ProjectDetailPage } from './pages/ProjectDetailPage'
 import { AdminPage } from './pages/admin/AdminPage'
 import { CreateProjectPage } from './pages/admin/CreateProjectPage'
 import { EditProjectPage } from './pages/admin/EditProjectPage'
+import { Navbar } from './components/Navbar'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-  
+    <>
+      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<ProjectsPage />} />
@@ -32,6 +34,7 @@ function App() {
           </PrivateRoute> }
         />
       </Routes>
+      </>
   )
 }
 

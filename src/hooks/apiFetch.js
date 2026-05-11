@@ -1,3 +1,7 @@
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
+
+
 export function useFetch() {
   const { logout } = useContext(AuthContext);
 
