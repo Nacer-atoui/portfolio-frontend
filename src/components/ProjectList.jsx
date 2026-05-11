@@ -24,10 +24,12 @@ useEffect(() => {
   fetchProjects();
 }, []);
 
+
 // conditions et messages d'erreurs
 if (loading) { return <p>Chargement...</p>; } // Affichage lors du chargement
 if (error) return <p>Erreur : {error}</p>; // Affichage si erreur
 if (!projects) return <p>Aucune donnée trouvée.</p>; // Affichage si aucun donnée trouvé
+
 
     return (
         <>
