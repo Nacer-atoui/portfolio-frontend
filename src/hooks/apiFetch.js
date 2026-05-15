@@ -17,7 +17,8 @@ export function useFetch() {
       },
     });
 
-    const data = await res.json();
+    const text = await res.text();
+    const data = text ? JSON.parse(text) : {};
 
     if (res.status === 400) {
       return { validationErrors: data.errors };

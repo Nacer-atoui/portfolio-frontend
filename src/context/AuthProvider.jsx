@@ -3,8 +3,6 @@ import AuthContext from "./AuthContext";
 
 export function AuthProvider({ children }) {
 
- 
-
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
   function login(token) {
