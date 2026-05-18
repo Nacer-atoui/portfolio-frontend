@@ -12,9 +12,11 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",
     "express-jwt": "^8.5.1",
+    "form": "^0.2.5",
+    "hook": "^0.1.0",
     "jsonwebtoken": "^9.0.3",
     "jwt-decode": "^4.0.0",
-    "react": "^19.2.5",
+    "react": "^19.2.6",
     "react-dom": "^19.2.5",
     "react-hook-form": "^7.75.0",
     "react-router-dom": "^7.15.0",
