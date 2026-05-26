@@ -51,7 +51,7 @@ export function HomePage() {
         <div className="w-full md:w-auto flex justify-center items-center">
           <img 
             className="w-full max-w-[384px] h-auto aspect-square rounded-xl border border-stone-300 object-cover shadow-sm" 
-            src="https://placehold.co/448x448" 
+            src="src/assets/Photo_3.JPG" 
             alt="Illustration Nacer Atoui - Développeur Web" 
           />
         </div>
