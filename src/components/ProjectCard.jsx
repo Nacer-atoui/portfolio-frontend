@@ -1,76 +1,55 @@
 import { Link } from "react-router-dom";
 
-export function ProjectCard({ id, title, description, image_url, tech_stack, github_url, demo_url }) {
+export function ProjectCard({ id, title, image_url, description, tags = ["PROJET"], isFeatured = false }) {
   return (
-    <article 
-      style={{
-        backgroundColor: "#1e1e1e", // Gris très foncé pour l'effet "carte"
-        borderRadius: "15px",
-        overflow: "hidden", // Permet à l'image d'épouser les bords arrondis en haut
-        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)", // Ombre profonde
-        display: "flex",
-        flexDirection: "column",
-        height: "100%", // Permet aux cartes d'avoir toutes la même hauteur dans une grille
-        fontFamily: "'Inter', sans-serif, system-ui",
-      }}
-    >
-      {/* 1. IMAGE DE COUVERTURE */}
-      <img 
-        src={image_url} 
-        alt={`Couverture du projet ${title}`} 
-        style={{
-          width: "100%",
-          height: "220px", // Hauteur fixe pour l'uniformité
-          objectFit: "cover", // Coupe l'image sans la déformer pour remplir le cadre
-          borderBottom: "2px solid #D4AF37" // Liseré doré très chic sous l'image
-        }} 
-      />
+    <article className={`w-full bg-white rounded-lg border border-stone-300 flex flex-col overflow-hidden group hover:shadow-lg transition-shadow duration-300 ${isFeatured ? 'md:col-span-2' : ''}`}>
+      
+      {/* Image du projet */}
+      <div className={`w-full bg-zinc-100 overflow-hidden ${isFeatured ? 'h-64 md:h-80' : 'h-64'}`}>
+        <img 
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+          src={image_url || "https://placehold.co/366x256"} 
+          alt={`Aperçu de ${title}`} 
+        />
+      </div>
 
-      {/* 2. CONTENU TEXTUEL */}
-      <div style={{ 
-        padding: "1.5rem", 
-        display: "flex", 
-        flexDirection: "column", 
-        flexGrow: 1 // Prend tout l'espace restant pour pousser le lien "Voir plus" tout en bas
-      }}>
+      {/* Contenu */}
+      <div className={`p-6 flex flex-col flex-grow ${isFeatured ? 'md:p-8' : ''}`}>
         
-        <h2 style={{ 
-          color: "#f8f9fa", // Blanc cassé
-          fontSize: "1.25rem", 
-          fontWeight: "600", 
-          margin: "0 0 1rem 0",
-          lineHeight: "1.3"
-        }}>
-          {title.length > 50 ? title.slice(0, 50) + "..." : title}
-        </h2>
+        {/* Badges / Tags */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {tags.map((tag, index) => (
+            <span key={index} className="px-2 py-1 bg-zinc-100 rounded-sm text-slate-600 text-xs font-bold font-['Inter'] uppercase leading-3 tracking-wide">
+              {tag}
+            </span>
+          ))}
+        </div>
         
-        <p style={{ 
-          color: "#a0a0a0", // Gris clair pour la lecture
-          fontSize: "0.95rem", 
-          lineHeight: "1.6", 
-          margin: "0 0 1.5rem 0",
-          flexGrow: 1
-        }}>
+        {/* Titre */}
+        <h3 className="text-gray-950 text-2xl font-semibold font-['Inter'] leading-8 mb-3">
+          {title}
+        </h3>
+        
+        {/* Description */}
+        <p className="text-slate-600 text-base font-normal font-['Inter'] leading-relaxed mb-6 flex-grow line-clamp-4">
           {description}
         </p>
-
-        {/* 3. LIEN D'ACTION */}
+        
+        {/* Bouton style Outline calqué sur la maquette */}
         <Link 
           to={`/projects/${id}`} 
-          style={{
-            display: "inline-block",
-            color: "#D4AF37", // Or
-            textDecoration: "none",
-            fontWeight: "600",
-            fontSize: "0.9rem",
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-            marginTop: "auto" // S'assure que le lien reste collé en bas de la carte
-          }}
+          className={`w-fit px-4 py-3 rounded-sm border inline-flex items-center gap-2 transition-colors mt-auto ${
+            isFeatured 
+              ? 'bg-blue-950 border-blue-950 text-white hover:bg-blue-900' 
+              : 'border-blue-950 text-blue-950 hover:bg-blue-50'
+          }`}
         >
-          Voir les détails →
+          <span className="text-xs font-bold font-['Inter'] leading-3 tracking-wide">Voir les détails</span>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
         </Link>
-        
+
       </div>
     </article>
   );

@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useFetch } from "../hooks/apiFetch";
-import { ProjectsPage } from "./ProjectsPage"; // Conservé comme dans ton fichier d'origine
 
-// fonction pour afficher l'article dans sa page individuellement
 export function ProjectDetailPage() {
   const { apiFetch } = useFetch();
-  const { id } = useParams(); // récupère le paramètre dynamique
+  const { id } = useParams();
   const [projectDetail, setProjectDetail] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -24,108 +22,105 @@ export function ProjectDetailPage() {
     };
 
     fetchProjectDetail();
-  }, [id, apiFetch]); // apiFetch ajouté aux dépendances
+  }, [id]);
 
-  // --- DÉFINITION DES STYLES ---
+  // --- STYLES DES ÉTATS (Chargement, Erreur, Vide) ---
+  const stateContainerClass = "w-full min-h-screen bg-stone-50 flex justify-center items-center p-6";
+  const stateTextClass = "text-center text-blue-950 text-xl font-medium font-['Inter']";
 
-  const mainStyle = {
-    backgroundColor: "#121212",
-    minHeight: "100vh",
-    padding: "clamp(2rem, 5vw, 4rem) 1.5rem",
-    fontFamily: "'Inter', sans-serif, system-ui",
-    color: "#f8f9fa",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center" // Centre le conteneur principal
-  };
+  if (loading) return <main className={stateContainerClass}><p className={stateTextClass}>Chargement du projet...</p></main>;
+  if (error) return <main className={stateContainerClass}><p className={`${stateTextClass} text-red-600`}>Erreur : {error}</p></main>;
+  if (!projectDetail) return <main className={stateContainerClass}><p className={stateTextClass}>Projet introuvable.</p></main>;
 
-  const containerStyle = {
-    width: "100%",
-    maxWidth: "800px", // Largeur idéale pour la lecture d'un article
-    display: "flex",
-    flexDirection: "column",
-    gap: "2rem"
-  };
-
-  const backLinkStyle = {
-    display: "inline-block",
-    color: "#D4AF37", // Or
-    textDecoration: "none",
-    fontWeight: "600",
-    fontSize: "0.9rem",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
-    marginBottom: "1rem"
-  };
-
-  const titleStyle = {
-    fontSize: "clamp(2rem, 6vw, 3.5rem)", // S'adapte parfaitement du mobile au PC
-    fontWeight: "800",
-    color: "#ffffff",
-    margin: "0",
-    lineHeight: "1.2"
-  };
-
-  const imageStyle = {
-    width: "100%",
-    maxHeight: "500px",
-    objectFit: "cover", // Coupe l'image proprement sans la déformer
-    borderRadius: "15px",
-    boxShadow: "0 15px 40px rgba(0, 0, 0, 0.6)", // Ombre profonde
-    borderBottom: "3px solid #D4AF37", // Soulignement doré très chic
-    backgroundColor: "#1e1e1e" // Couleur de fond si l'image met du temps à charger
-  };
-
-  const textStyle = {
-    fontSize: "1.1rem",
-    lineHeight: "1.8", // Très aéré pour la lecture
-    color: "#d0d0d0", // Gris très clair, presque blanc, pour reposer les yeux
-    whiteSpace: "pre-wrap" // Permet de respecter les sauts de ligne si ta description en a
-  };
-
-  // Conditions avec le thème sombre
-  if (loading) return <main style={mainStyle}><p style={{ color: "#D4AF37", fontSize: "1.2rem", marginTop: "10vh" }}>Chargement du projet...</p></main>;
-  if (error) return <main style={mainStyle}><p style={{ color: "#ff6b6b", fontSize: "1.2rem", marginTop: "10vh" }}>Erreur : {error}</p></main>;
-  if (!projectDetail) return <main style={mainStyle}><p style={{ color: "#a0a0a0", fontSize: "1.2rem", marginTop: "10vh" }}>Projet introuvable.</p></main>;
+  // Simulation de tags si ton API ne les renvoie pas encore (à remplacer/supprimer selon ta BDD)
+  const tags = projectDetail.tags || ["REACT", "TAILWIND CSS", "NODE.JS"];
 
   return (
-    <main className="article-card-detail" style={mainStyle}>
+    <main className="w-full min-h-screen bg-stone-50 flex flex-col items-center py-12 md:py-16">
       
-      <article style={containerStyle}>
+      {/* Conteneur principal */}
+      <article className="w-full max-w-[1200px] px-6 flex flex-col justify-start items-start gap-8 md:gap-12">
         
-        {/* Lien de retour */}
-        <div>
-          <Link to={"/projects/"} style={backLinkStyle}>
-            ← Retour aux projets
-          </Link>
+        {/* Bouton Retour aux projets */}
+        <Link 
+          to="/projects" 
+          className="inline-flex justify-start items-center gap-2 group"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-slate-600 group-hover:text-blue-950 transition-colors group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          <span className="text-slate-600 group-hover:text-blue-950 transition-colors text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+            Retour aux projets
+          </span>
+        </Link>
+
+        {/* Image de couverture du projet */}
+        <div className="w-full bg-zinc-100 rounded-lg shadow-sm border border-stone-300 flex flex-col justify-center items-start overflow-hidden">
+          <img 
+            className="w-full h-auto max-h-[500px] object-cover" 
+            src={projectDetail.image_url || "https://placehold.co/1150x492"} 
+            alt={`Aperçu du projet ${projectDetail.title}`} 
+          />
         </div>
-        
-        {/* En-tête de l'article (Titre + Image) */}
-        <header style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-          <h1 id="title-detail" className='titleCard' style={titleStyle}>
+
+        {/* Conteneur du texte (limité à 768px pour une lecture optimale) */}
+        <div className="w-full max-w-[768px] flex flex-col justify-start items-start gap-6">
+          
+          {/* Titre */}
+          <h1 className="text-blue-950 text-4xl md:text-5xl font-extrabold font-['Inter'] leading-tight md:leading-[52.80px]">
             {projectDetail.title}
           </h1>
-          
-          {/* L'attribut alt dynamique est meilleur pour l'accessibilité que "toto" ;) */}
-          <img 
-            className='img-article-detail' 
-            src={projectDetail.image_url} 
-            alt={`Aperçu du projet ${projectDetail.title}`} 
-            style={imageStyle} 
-          />
-        </header>
 
-        {/* Corps de l'article */}
-        <div className="content-detail" style={{ padding: "1rem 0 3rem 0" }}>
-          <p id="p-detail" style={textStyle}>
-            {projectDetail.description}
-          </p>
-          
-          {/* Si tu veux afficher les liens GitHub / Demo plus tard, tu pourras les mettre ici ! */}
+          {/* Tags / Technologies */}
+          {tags && tags.length > 0 && (
+            <div className="flex flex-wrap justify-start items-start gap-2 pt-1">
+              {tags.map((tag, index) => (
+                <div key={index} className="px-3 py-1 bg-zinc-100 rounded-sm border border-stone-300 flex justify-center items-center">
+                  <span className="text-slate-600 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+                    {tag}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Description de l'article */}
+          <div className="w-full flex flex-col gap-6">
+            <p className="text-zinc-700 text-base md:text-lg font-normal font-['Inter'] leading-7 md:leading-relaxed whitespace-pre-wrap">
+              {projectDetail.description}
+            </p>
+          </div>
+
+          {/* Boutons d'action (GitHub / Démo) - Affichés uniquement si l'URL existe */}
+          <div className="w-full pt-6 border-t border-stone-300 flex flex-wrap justify-start items-start gap-4">
+            
+            {projectDetail.github_url && (
+              <a 
+                href={projectDetail.github_url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm shadow-sm flex justify-center items-center gap-2"
+              >
+                <span className="text-white text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">URL GITHUB</span>
+              </a>
+            )}
+
+            {projectDetail.demo_url && (
+              <a 
+                href={projectDetail.demo_url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-sm border border-blue-950 hover:bg-blue-50 transition-colors flex justify-center items-center gap-2"
+              >
+                <span className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">URL DÉMO</span>
+              </a>
+            )}
+
+          </div>
+
         </div>
 
       </article>
-
     </main>
   );
 }

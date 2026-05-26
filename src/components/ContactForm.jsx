@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useFetch } from "../hooks/apiFetch";
+import { toast } from "react-toast";
 
 export function ContactForm() {
   const { apiFetch } = useFetch();
@@ -19,9 +20,9 @@ export function ContactForm() {
         body: JSON.stringify(data), 
       });
       
-      alert("Message envoyé !");
+      toast.success("Message envoyé !");
       reset();
-      
+    
     } catch (error) {
       console.error("Erreur lors de l'envoi :", error);
     }
@@ -63,95 +64,65 @@ export function ContactForm() {
           tout en le gardant pour le SEO et l'accessibilité */}
       <h1 style={{ display: "none" }}>Contact</h1>
 
-      <form
-        onSubmit={handleSubmit(handleSubmitForm)}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          maxWidth: "500px",
-          gap: "1.5rem",
-          backgroundColor: "#1e1e1e", // Effet "carte" pour détacher le formulaire du fond
-          padding: "clamp(1.5rem, 5vw, 3rem)", // Padding responsive
-          borderRadius: "15px",
-          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)" // Ombre portée élégante
-        }}
-      >
-        {/* 1. NOM */}
-        <div>
-          <label htmlFor="name" style={labelStyle}>Votre nom</label>
-          <input
-            id="name"
-            type="text"
-            placeholder="John Doe"
-            {...register("name", {
-              required: "Le nom est obligatoire.",
-              minLength: {
-                value: 2,
-                message: "Le nom doit faire au moins 2 caractères.",
-              },
-            })}
-            style={inputStyle}
-          />
-          {errors.name && <p style={errorStyle}>{errors.name.message}</p>}
-        </div>
-
-        {/* 2. E-MAIL */}
-        <div>
-          <label htmlFor="email" style={labelStyle}>Votre e-mail</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="john@exemple.com"
-            {...register("email", {
-              required: "L'e-mail est obligatoire.",
-            })}
-            style={inputStyle}
-          />
-          {errors.email && <p style={errorStyle}>{errors.email.message}</p>}
-        </div>
-
-        {/* 3. MESSAGE */}
-        <div>
-          <label htmlFor="message" style={labelStyle}>Message</label>
-          <textarea
-            id="message"
-            rows="5"
-            placeholder="Comment puis-je vous aider ?"
-            {...register("message", {
-              required: "Le message est obligatoire.",
-              minLength: {
-                value: 8,
-                message: "Le message doit faire au moins 8 caractères.",
-              },
-            })}
-            style={{ ...inputStyle, resize: "vertical" }} // Permet d'agrandir la zone de texte de haut en bas
-          />
-          {errors.message && <p style={errorStyle}>{errors.message.message}</p>}
-        </div>
-
-        {/* BOUTON SUBMIT */}
-        <button
-          type="submit"
-          style={{
-            padding: "1rem 2.5rem",
-            backgroundColor: "#D4AF37", // Or
-            color: "#121212", // Texte noir
-            border: "none",
-            borderRadius: "30px", // Forme pilule
-            fontWeight: "600",
-            fontSize: "1rem",
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-            cursor: "pointer",
-            boxShadow: "0 4px 15px rgba(212, 175, 55, 0.2)",
-            marginTop: "1rem"
-          }}
+      <form 
+          onSubmit={handleSubmit} 
+          className="w-full flex flex-col justify-start items-start gap-6"
         >
-          Envoyer le message
-        </button>
+          
+          {/* Champ Nom & Prénom */}
+          <div className="w-full flex flex-col gap-2">
+            <label htmlFor="name" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+              Nom & Prénom
+            </label>
+            <input 
+              type="text" 
+              id="name"
+              name="name"
+              placeholder="John Doe" 
+              className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
+              required
+            />
+          </div>
 
-      </form>
+          {/* Champ Email */}
+          <div className="w-full flex flex-col gap-2">
+            <label htmlFor="email" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+              Email
+            </label>
+            <input 
+              type="email" 
+              id="email"
+              name="email"
+              placeholder="john@example.com" 
+              className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
+              required
+            />
+          </div>
+
+          {/* Champ Message */}
+          <div className="w-full flex flex-col gap-2">
+            <label htmlFor="message" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+              Message
+            </label>
+            <textarea 
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Détaillez votre projet..." 
+              className="w-full px-4 py-3 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500 resize-y"
+              required
+            ></textarea>
+          </div>
+
+          {/* Bouton de soumission */}
+          <button 
+            type="submit" 
+            className="w-full py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm text-center text-white text-base font-medium font-['Inter'] leading-6 cursor-pointer shadow-sm"
+          >
+            Envoyer le message
+          </button>
+          
+        </form>
     </main>
   );
 }

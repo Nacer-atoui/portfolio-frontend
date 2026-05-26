@@ -39,36 +39,56 @@ export function Navbar() {
   };
 
   return (
-    <nav className="navbar" style={navStyle}>
-      <Link to="/" style={linkStyle}>Accueil</Link>
-      <Link to="/projects" style={linkStyle}>Portfolio</Link>
+<nav className="w-full bg-stone-50 border-b border-stone-300 flex flex-col justify-start items-center">
+    
+  <div className="w-full max-w-1200px px-6 py-4 flex justify-center items-center">
+
+    {/* Liens de navigation */}
+    <div className="flex justify-start items-center gap-8">
+      
+      {/* Lien Actif */}
+      <Link to="/" className="pb-1 border-b-2 border-blue-950 flex flex-col justify-start items-start">
+        <span className="justify-center text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide">
+          Accueil
+        </span>
+      </Link>
+      
+      {/* Liens Inactifs */}
+      <Link to="/projects" className="flex flex-col justify-start items-start group">
+        <span className="justify-center text-slate-600 group-hover:text-blue-950 transition-colors text-xs font-bold font-['Inter'] leading-3 tracking-wide">
+          Mes projets
+        </span>
+      </Link>
 
       {/* Affichage conditionnel basé sur la connexion */}
       {isLoggedIn ? (
         <>
-          <Link to="/admin" style={linkStyle}>Administration</Link>
+          <Link to="/admin" className="flex flex-col justify-start items-start group">
+            <span className="justify-center text-slate-600 group-hover:text-blue-950 transition-colors text-xs font-bold font-['Inter'] leading-3 tracking-wide">
+              Admin
+            </span>
+          </Link>
           
-          {/* Le bouton reprend exactement la forme d'un lien doré */}
+          {/* Bouton de déconnexion calqué sur le style des liens inactifs */}
           <button 
             onClick={logout} 
-            className="btn-logout" 
-            style={{ 
-              ...actionStyle, 
-              background: "none", 
-              border: "none", 
-              cursor: "pointer", 
-              padding: 0,
-              fontFamily: "inherit"
-            }}
+            className="flex flex-col justify-start items-start bg-transparent border-none cursor-pointer p-0 group"
           >
-            Déconnexion
+            <span className="justify-center text-slate-600 group-hover:text-blue-950 transition-colors text-xs font-bold font-['Inter'] leading-3 tracking-wide">
+              Déconnexion
+            </span>
           </button>
         </>
       ) : (
-        <Link to="/login" className="btn-login" style={actionStyle}>
-          Connexion
+        <Link to="/login" className="flex flex-col justify-start items-start group">
+          <span className="justify-center text-slate-600 group-hover:text-blue-950 transition-colors text-xs font-bold font-['Inter'] leading-3 tracking-wide">
+            Connexion
+          </span>
         </Link>
       )}
-    </nav>
+    </div>
+    
+  </div>
+</nav>
   );
 }

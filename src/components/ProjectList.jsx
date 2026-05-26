@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFetch } from "../hooks/apiFetch";
 import { ProjectCard } from "./ProjectCard";
+import { Footer } from "./Footer";
 
 export function ProjectList() {
   const { apiFetch } = useFetch();
@@ -23,61 +24,57 @@ export function ProjectList() {
     fetchProjects();
   }, []);
 
-  // --- DÉFINITION DES STYLES ---
-  
-  const sectionStyle = {
-    backgroundColor: "#121212", // Fond noir
-    minHeight: "100vh",
-    padding: "4rem 1.5rem",
-    fontFamily: "'Inter', sans-serif, system-ui"
-  };
+  // --- STYLES DES ÉTATS (Chargement, Erreur) ---
+  const stateContainerClass = "w-full min-h-[50vh] bg-stone-50 flex justify-center items-center p-6";
+  const stateTextClass = "text-center text-blue-950 text-xl font-medium font-['Inter']";
 
-  const messageStyle = {
-    textAlign: "center",
-    color: "#D4AF37", // Texte doré pour les statuts
-    fontSize: "1.2rem",
-    padding: "5rem 2rem",
-    fontWeight: "500"
-  };
-
-  const gridStyle = {
-    display: "grid",
-    // C'est LA ligne magique pour le responsive sans Media Queries :
-    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-    gap: "2.5rem",
-    maxWidth: "1200px", // Limite la largeur sur les écrans géants
-    margin: "0 auto", // Centre la grille
-  };
-
-  // Conditions et messages d'erreurs stylisés
-  if (loading) return <div style={sectionStyle}><p style={messageStyle}>Chargement de mes projets...</p></div>;
-  if (error) return <div style={sectionStyle}><p style={{...messageStyle, color: "#ff6b6b"}}>Erreur : {error}</p></div>;
-  if (!projects || projects.length === 0) return <div style={sectionStyle}><p style={messageStyle}>Aucun projet trouvé pour le moment.</p></div>;
+  if (loading) return <div className={stateContainerClass}><p className={stateTextClass}>Chargement des projets...</p></div>;
+  if (error) return <div className={stateContainerClass}><p className={`${stateTextClass} text-red-600`}>Erreur : {error}</p></div>;
+  if (!projects || projects.length === 0) return <div className={stateContainerClass}><p className={stateTextClass}>Aucun projet trouvé pour le moment.</p></div>;
 
   return (
-    <section style={sectionStyle}>
-      {/* Optionnel : Un petit titre de section pour habiller la page si elle est affichée seule */}
-      <h2 style={{ 
-        textAlign: "center", 
-        color: "#ffffff", 
-        fontSize: "clamp(1.8rem, 5vw, 2.5rem)", 
-        marginBottom: "3rem",
-        fontWeight: "700" 
-      }}>
-        Mes <span style={{ color: "#D4AF37" }}>Réalisations</span>
-      </h2>
+    <>
+    <section className="w-full bg-stone-50 flex justify-center items-start">
+      <div className="w-full max-w-[1200px] px-6 pt-28 pb-32 flex flex-col justify-start items-center gap-16 md:gap-24">
+        
+        {/* En-tête de la page */}
+        <div className="w-full max-w-[672px] flex flex-col justify-start items-center gap-6 text-center">
+          <h1 className="text-gray-950 text-4xl md:text-5xl font-extrabold font-['Inter'] leading-tight md:leading-[52.80px]">
+            Mes projets
+          </h1>
+          <p className="text-slate-600 text-base md:text-lg font-normal font-['Inter'] leading-7">
+            A selection of recent architectural software developments, focusing on scalable systems, pristine codebases, and uncompromising performance.
+          </p>
+        </div>
 
-      <div className='containList' style={gridStyle}>
-        {projects.map((proj) => (
-          <ProjectCard
-            key={proj.id}
-            id={proj.id}
-            title={proj.title}
-            image_url={proj.image_url}
-            description={proj.description}
-          />
-        ))}
+        {/* Grille dynamique des projets */}
+        {/* 1 colonne sur mobile, 2 sur tablette, 3 sur PC */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          {projects.map((proj, index) => {
+            // Transforme ta catégorie simple en tableau pour correspondre au design, 
+            // ou utilise directement un tableau si ton API l'envoie.
+            const projectTags = proj.tags ? proj.tags : [proj.category || "PROJET"];
+
+            return (
+              <ProjectCard
+                key={proj.id}
+                id={proj.id}
+                title={proj.title}
+                image_url={proj.image_url}
+                description={proj.description}
+                tags={projectTags}
+                // Astuce : On rend le 3ème élément (index 2) ou le 6ème (index 5) plus grand pour casser la symétrie
+                isFeatured={index === 2 || index === 5} 
+              />
+            );
+          })}
+          
+        </div>
+        
       </div>
     </section>
+    <Footer />
+    </>
   );
 }

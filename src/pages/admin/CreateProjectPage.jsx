@@ -1,10 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useFetch } from "../../hooks/apiFetch";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toast";
 
 export function CreateProjectPage() {
   const { apiFetch } = useFetch();
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -13,208 +15,250 @@ export function CreateProjectPage() {
 
   const handleSubmitForm = async (data) => {
     try {
-      const result = await apiFetch("/projects/", {
+      await apiFetch("/projects", {
         method: "POST",
-        body: JSON.stringify(data), 
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
-      
-      alert("Projet ajouté !");
+
+      toast.success("Projet ajouté !");
       navigate("/admin");
-      
     } catch (error) {
       console.error("Erreur lors de l'envoi :", error);
+      toast.error("Erreur lors de la création du projet.");
     }
   };
 
-  // --- DÉFINITION DES STYLES ---
-
-  const mainStyle = {
-    backgroundColor: "#121212",
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "4rem 1.5rem",
-    fontFamily: "'Inter', sans-serif, system-ui",
-    color: "#f8f9fa"
-  };
-
-  const labelStyle = {
-    color: "#a0a0a0",
-    fontWeight: "600",
-    fontSize: "0.9rem",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
-    display: "block",
-    marginBottom: "0.5rem"
-  };
-
-  const inputStyle = {
-    width: "100%",
-    padding: "1rem",
-    backgroundColor: "#121212", 
-    border: "1px solid #333", 
-    borderRadius: "8px",
-    color: "#f8f9fa",
-    fontSize: "1rem",
-    boxSizing: "border-box",
-    fontFamily: "inherit"
-  };
-
-  const errorStyle = {
-    color: "#ff6b6b", // Rouge doux
-    fontSize: "0.85rem",
-    margin: "0.5rem 0 0 0"
-  };
-
   return (
-    <main className="form-container" style={mainStyle}>
-      
-      <h1 style={{ 
-        fontSize: "clamp(1.5rem, 5vw, 2.5rem)", 
-        fontWeight: "700", 
-        marginBottom: "2.5rem",
-        textAlign: "center"
-      }}>
-        Créer un nouveau <span style={{ color: "#D4AF37" }}>Projet</span>
-      </h1>
-
-      <form
-        onSubmit={handleSubmit(handleSubmitForm)}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          maxWidth: "600px", // Un peu plus large pour être confortable
-          gap: "1.5rem",
-          backgroundColor: "#1e1e1e", // Effet carte
-          padding: "clamp(1.5rem, 5vw, 3rem)",
-          borderRadius: "15px",
-          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)"
-        }}
-      >
-        {/* 1. TITLE */}
-        <div>
-          <label htmlFor="title" style={labelStyle}>Titre du projet *</label>
-          <input
-            id="title"
-            type="text"
-            placeholder="Mon Super Projet"
-            {...register("title", {
-              required: "Le titre est obligatoire.",
-              minLength: {
-                value: 2,
-                message: "Le titre doit faire au moins 2 caractères.",
-              },
-              maxLength: {
-                value: 150,
-                message: "Le titre doit faire au maximum 150 caractères.",
-              },
-            })}
-            style={inputStyle}
-          />
-          {errors.title && <p style={errorStyle}>{errors.title.message}</p>}
+    <main className="w-full min-h-screen bg-stone-50 flex justify-center items-start pt-12 pb-24 px-6">
+      {/* Conteneur principal limité en largeur pour une bonne lisibilité */}
+      <div className="w-full max-w-3xl flex flex-col gap-10">
+        {/* En-tête */}
+        <div className="flex flex-col gap-2">
+          <h1 className="text-gray-950 text-3xl font-bold font-['Inter'] leading-10">
+            Édition du Projet
+          </h1>
+          <p className="text-slate-600 text-base md:text-lg font-normal font-['Inter'] leading-7">
+            Ajoutez ou modifiez les détails d'un projet pour le portfolio.
+          </p>
         </div>
 
-        {/* 2. DESCRIPTION */}
-        <div>
-          <label htmlFor="description" style={labelStyle}>Description *</label>
-          <textarea
-            id="description"
-            rows="5"
-            placeholder="Expliquez brièvement le but du projet..."
-            {...register("description", {
-              required: "La description est obligatoire.", // J'ai rajouté le required logique ici
-              maxLength: {
-                value: 2000,
-                message: "La description doit faire au maximum 2000 caractères.",
-              },
-            })}
-            style={{ ...inputStyle, resize: "vertical" }}
-          />
-          {errors.description && <p style={errorStyle}>{errors.description.message}</p>}
-        </div>
-
-        {/* 3. TECH_STACK */}
-        <div>
-          <label htmlFor="tech_stack" style={labelStyle}>
-            Stack technique (ex: React, Node.js)
-          </label>
-          <input
-            id="tech_stack"
-            type="text"
-            placeholder="React, Express, MySQL"
-            {...register("tech_stack", {
-              maxLength: {
-                value: 255,
-                message: "La stack technique doit faire au maximum 255 caractères.",
-              },
-            })}
-            style={inputStyle}
-          />
-          {errors.tech_stack && <p style={errorStyle}>{errors.tech_stack.message}</p>}
-        </div>
-
-        {/* 4. GITHUB_URL */}
-        <div>
-          <label htmlFor="github_url" style={labelStyle}>URL GitHub</label>
-          <input
-            id="github_url"
-            type="url"
-            placeholder="https://github.com/..."
-            {...register("github_url")}
-            style={inputStyle}
-          />
-          {errors.github_url && <p style={errorStyle}>{errors.github_url.message}</p>}
-        </div>
-
-        {/* 5. DEMO_URL */}
-        <div>
-          <label htmlFor="demo_url" style={labelStyle}>URL de la démo (Live)</label>
-          <input
-            id="demo_url"
-            type="url"
-            placeholder="https://mon-projet.com"
-            {...register("demo_url")}
-            style={inputStyle}
-          />
-          {errors.demo_url && <p style={errorStyle}>{errors.demo_url.message}</p>}
-        </div>
-
-        {/* 6. IMAGE_URL */}
-        <div>
-          <label htmlFor="image_url" style={labelStyle}>URL de l'image de couverture</label>
-          <input
-            id="image_url"
-            type="text"
-            placeholder="/images/projet1.png ou https://..."
-            {...register("image_url")}
-            style={inputStyle}
-          />
-          {errors.image_url && <p style={errorStyle}>{errors.image_url.message}</p>}
-        </div>
-
-        {/* BOUTON SUBMIT */}
-        <button
-          type="submit"
-          style={{
-            padding: "1rem 2.5rem",
-            backgroundColor: "#D4AF37",
-            color: "#121212",
-            border: "none",
-            borderRadius: "30px",
-            fontWeight: "600",
-            fontSize: "1rem",
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-            cursor: "pointer",
-            boxShadow: "0 4px 15px rgba(212, 175, 55, 0.2)",
-            marginTop: "1rem"
-          }}
+        {/* Formulaire (Carte blanche) */}
+        <form
+          onSubmit={handleSubmit(handleSubmitForm)}
+          className="w-full p-6 md:p-8 bg-white rounded-lg shadow-sm border border-stone-300 flex flex-col gap-8"
         >
-          Enregistrer le projet
-        </button>
-      </form>
+          {/* 1. TITRE */}
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="title"
+              className="text-zinc-700 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase"
+            >
+              Titre du projet *
+            </label>
+            <input
+              id="title"
+              type="text"
+              placeholder="Ex: E-commerce Platform"
+              className={`w-full px-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-gray-900 text-base font-normal font-['Inter'] ${
+                errors.title
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-stone-300 focus:ring-blue-950"
+              }`}
+              {...register("title", {
+                required: "Le titre est obligatoire.",
+                minLength: {
+                  value: 2,
+                  message: "Le titre doit faire au moins 2 caractères.",
+                },
+                maxLength: {
+                  value: 150,
+                  message: "Le titre doit faire au maximum 150 caractères.",
+                },
+              })}
+            />
+            {errors.title && (
+              <span className="text-red-500 text-xs font-medium">
+                {errors.title.message}
+              </span>
+            )}
+          </div>
+
+          {/* 2. DESCRIPTION (Ajouté par rapport à Figma pour correspondre à ton React) */}
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="description"
+              className="text-zinc-700 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase"
+            >
+              Description *
+            </label>
+            <textarea
+              id="description"
+              rows="5"
+              placeholder="Détaillez les défis techniques et les solutions apportées..."
+              className={`w-full px-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-gray-900 text-base font-normal font-['Inter'] resize-y ${
+                errors.description
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-stone-300 focus:ring-blue-950"
+              }`}
+              {...register("description", {
+                required: "La description est obligatoire.",
+                maxLength: {
+                  value: 2000,
+                  message:
+                    "La description doit faire au maximum 2000 caractères.",
+                },
+              })}
+            />
+            {errors.description && (
+              <span className="text-red-500 text-xs font-medium">
+                {errors.description.message}
+              </span>
+            )}
+          </div>
+
+          {/* 3. TECH STACK */}
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="tech_stack"
+              className="text-zinc-700 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase"
+            >
+              Stack technique
+            </label>
+            <input
+              id="tech_stack"
+              type="text"
+              placeholder="Ex: React, Node.js, PostgreSQL"
+              className={`w-full px-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-gray-900 text-base font-normal font-['Inter'] ${
+                errors.tech_stack
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-stone-300 focus:ring-blue-950"
+              }`}
+              {...register("tech_stack", {
+                maxLength: {
+                  value: 255,
+                  message:
+                    "La stack technique doit faire au maximum 255 caractères.",
+                },
+              })}
+            />
+            <span className="text-slate-500 text-xs font-mono">
+              Séparez les technologies par des virgules.
+            </span>
+            {errors.tech_stack && (
+              <span className="text-red-500 text-xs font-medium">
+                {errors.tech_stack.message}
+              </span>
+            )}
+          </div>
+
+          {/* Grille pour les URLs (Côte à côte sur PC) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* 4. GITHUB URL */}
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="github_url"
+                className="text-zinc-700 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase"
+              >
+                URL GitHub
+              </label>
+              <input
+                id="github_url"
+                type="url"
+                placeholder="https://github.com/..."
+                className={`w-full px-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-gray-900 text-base font-normal font-['Inter'] ${
+                  errors.github_url
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-stone-300 focus:ring-blue-950"
+                }`}
+                {...register("github_url")}
+              />
+              {errors.github_url && (
+                <span className="text-red-500 text-xs font-medium">
+                  {errors.github_url.message}
+                </span>
+              )}
+            </div>
+
+            {/* 5. DEMO URL */}
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="demo_url"
+                className="text-zinc-700 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase"
+              >
+                URL de la démo
+              </label>
+              <input
+                id="demo_url"
+                type="url"
+                placeholder="https://..."
+                className={`w-full px-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-gray-900 text-base font-normal font-['Inter'] ${
+                  errors.demo_url
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-stone-300 focus:ring-blue-950"
+                }`}
+                {...register("demo_url")}
+              />
+              {errors.demo_url && (
+                <span className="text-red-500 text-xs font-medium">
+                  {errors.demo_url.message}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* 6. IMAGE URL */}
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="image_url"
+              className="text-zinc-700 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase"
+            >
+              URL de l'image de couverture
+            </label>
+            <input
+              id="image_url"
+              type="text"
+              placeholder="https://..."
+              className={`w-full px-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-gray-900 text-base font-normal font-['Inter'] ${
+                errors.image_url
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-stone-300 focus:ring-blue-950"
+              }`}
+              {...register("image_url")}
+            />
+            {errors.image_url && (
+              <span className="text-red-500 text-xs font-medium">
+                {errors.image_url.message}
+              </span>
+            )}
+          </div>
+
+          {/* Actions (Boutons) */}
+          <div className="pt-6 border-t border-stone-300 flex flex-wrap justify-end items-center gap-4">
+            {/* Bouton Annuler géré via React Router */}
+            <Link
+              to="/admin"
+              className="px-6 py-3 border border-gray-900 hover:bg-gray-100 transition-colors rounded-sm flex justify-center items-center"
+            >
+              <span className="text-gray-900 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+                Annuler
+              </span>
+            </Link>
+
+            {/* Bouton Soumettre */}
+            <button
+              type="submit"
+              className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm shadow-sm flex justify-center items-center cursor-pointer"
+            >
+              <span className="text-white text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+                Enregistrer le projet
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
     </main>
   );
 }

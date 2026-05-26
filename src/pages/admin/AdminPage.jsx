@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { useFetch } from "../../hooks/apiFetch";
-import { ProjectDetailPage } from "../ProjectDetailPage";
 import { Link } from "react-router-dom";
-import { CreateProjectPage } from "./CreateProjectPage";
+import { useFetch } from "../../hooks/apiFetch";
+import { toast } from "react-toast";
 
-export function AdminPage({ id }) {
+export function AdminPage() {
   const { apiFetch } = useFetch();
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState(null);
@@ -25,161 +24,135 @@ export function AdminPage({ id }) {
     fetchProjectAdmin();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, title) => {
     const isConfirmed = window.confirm(
-      "Es-tu sûr de vouloir supprimer ce projet ?"
+      `Es-tu sûr de vouloir supprimer ce projet "${title}" ?`
     );
 
     if (isConfirmed) {
       try {
-        await apiFetch("/projects/" + id, {
+        await apiFetch(`/projects/${id}`, {
           method: "DELETE",
         });
-        alert("Projet supprimé !");
+        toast.success("Projet supprimé !");
         setProjects(projects.filter((project) => project.id !== id));
       } catch (err) {
         console.error(err);
-        alert(
-          "Une erreur est survenue lors de la suppression : " + err.message
-        );
+        alert("Une erreur est survenue lors de la suppression : " + err.message);
       }
     }
   }; 
 
-  // --- DÉFINITION DES STYLES ---
+  // --- STYLES DES ÉTATS (Chargement, Erreur) ---
+  const stateContainerClass = "w-full min-h-screen bg-stone-50 flex justify-center items-center p-6";
+  const stateTextClass = "text-center text-blue-950 text-xl font-medium font-['Inter']";
 
-  const mainStyle = {
-    backgroundColor: "#121212",
-    color: "#f8f9fa",
-    minHeight: "100vh",
-    padding: "clamp(2rem, 5vw, 4rem) 1.5rem",
-    fontFamily: "'Inter', sans-serif, system-ui"
-  };
-
-  const headerStyle = {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexWrap: "wrap",
-    gap: "1rem",
-    maxWidth: "1200px",
-    margin: "0 auto 3rem auto",
-    paddingBottom: "1.5rem",
-    borderBottom: "1px solid #2a2a2a"
-  };
-
-  const btnCreateStyle = {
-    display: "inline-block",
-    backgroundColor: "#D4AF37",
-    color: "#121212",
-    textDecoration: "none",
-    padding: "0.8rem 1.5rem",
-    borderRadius: "8px",
-    fontWeight: "700",
-    textTransform: "uppercase",
-    letterSpacing: "0.5px",
-    fontSize: "0.9rem",
-    boxShadow: "0 4px 15px rgba(212, 175, 55, 0.2)"
-  };
-
-  const gridStyle = {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", // Grille responsive
-    gap: "2rem",
-    maxWidth: "1200px",
-    margin: "0 auto"
-  };
-
-  const cardStyle = {
-    backgroundColor: "#1e1e1e",
-    borderRadius: "12px",
-    overflow: "hidden",
-    boxShadow: "0 8px 20px rgba(0,0,0,0.4)",
-    display: "flex",
-    flexDirection: "column"
-  };
-
-  const cardActionStyle = {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "1rem 1.5rem",
-    backgroundColor: "#1a1a1a",
-    borderTop: "1px solid #2a2a2a"
-  };
-
-  const btnEditStyle = {
-    color: "#D4AF37",
-    textDecoration: "none",
-    fontWeight: "600",
-    fontSize: "0.9rem",
-    textTransform: "uppercase"
-  };
-
-  const btnDeleteStyle = {
-    background: "none",
-    border: "none",
-    color: "#ff6b6b", // Rouge doux pour la suppression
-    fontWeight: "600",
-    fontSize: "0.9rem",
-    textTransform: "uppercase",
-    cursor: "pointer",
-    padding: 0,
-    fontFamily: "inherit"
-  };
-
-  // Conditions et messages d'erreurs
-  if (loading) return <main style={mainStyle}><p style={{ textAlign: "center", color: "#D4AF37" }}>Chargement de l'administration...</p></main>;
-  if (error) return <main style={mainStyle}><p style={{ textAlign: "center", color: "#ff6b6b" }}>Erreur : {error}</p></main>;
-  if (projects.length === 0) return <main style={mainStyle}><p style={{ textAlign: "center", color: "#a0a0a0" }}>Aucun projet trouvé.</p></main>;
+  if (loading) return <main className={stateContainerClass}><p className={stateTextClass}>Chargement de l'administration...</p></main>;
+  if (error) return <main className={stateContainerClass}><p className={`${stateTextClass} text-red-600`}>Erreur : {error}</p></main>;
 
   return (
-    <main style={mainStyle}>
-      
-      {/* EN-TÊTE DE L'ADMINISTRATION */}
-      <div style={headerStyle}>
-        <h1 style={{ fontSize: "clamp(1.5rem, 4vw, 2rem)", fontWeight: "700", margin: 0 }}>
-          Gestion des <span style={{ color: "#D4AF37" }}>Projets</span>
-        </h1>
-        <Link to={"/admin/projects/new"} style={btnCreateStyle}>
-          + Créer un projet
-        </Link>
-      </div>
+    <main className="w-full min-h-screen bg-stone-50 flex flex-col items-center">
+      <div className="w-full max-w-[1200px] px-6 pt-16 pb-32 flex flex-col gap-12">
+        
+        {/* EN-TÊTE DE L'ADMINISTRATION */}
+        <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div className="flex flex-col gap-1">
+            <h1 className="text-blue-950 text-3xl md:text-4xl font-bold font-['Inter'] leading-10">
+              Tableau de bord
+            </h1>
+            <p className="text-zinc-700 text-base font-normal font-['Inter'] leading-6">
+              Gérez vos projets et votre portfolio.
+            </p>
+          </div>
+          
+          <Link 
+            to="/admin/projects/new" 
+            className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors shadow-sm rounded-sm flex justify-center items-center gap-2 group"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-white font-bold transition-transform group-hover:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            <span className="text-white text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+              Ajouter un projet
+            </span>
+          </Link>
+        </div>
 
-      {/* GRILLE DES PROJETS (Mode Admin) */}
-      <div style={gridStyle}>
-        {projects.map((project) => (
-          <article key={project.id} style={cardStyle}>
-            
-            {/* Image (plus petite que sur le portfolio pour gagner de la place) */}
-            <img 
-              src={project.image_url} 
-              alt={project.title} 
-              style={{ width: "100%", height: "160px", objectFit: "cover" }} 
-            />
-            
-            {/* Contenu */}
-            <div style={{ padding: "1.5rem", flexGrow: 1 }}>
-              <h2 style={{ fontSize: "1.1rem", marginBottom: "0.8rem", color: "#f8f9fa", lineHeight: "1.3" }}>
-                {project.title.length > 40 ? project.title.slice(0, 40) + "..." : project.title}
-              </h2>
-              <p style={{ fontSize: "0.85rem", color: "#a0a0a0", margin: 0, lineHeight: "1.5" }}>
-                {project.description.length > 80 ? project.description.slice(0, 80) + "..." : project.description}
-              </p>
+        {/* LISTE DES PROJETS (Mode Tableau) */}
+        <div className="w-full bg-white rounded-lg shadow-sm border border-stone-300 flex flex-col overflow-hidden">
+          
+          {/* En-tête du tableau (Masqué sur mobile, visible sur tablette/PC) */}
+          <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-zinc-100 border-b border-stone-300">
+            <div className="col-span-6 text-slate-600 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+              Titre du projet
             </div>
-
-            {/* Boutons d'action (Modifier / Supprimer) */}
-            <div style={cardActionStyle}>
-              <Link to={`/admin/projects/${project.id}/edit`} style={btnEditStyle}>
-                Modifier
-              </Link>
-              <button onClick={() => handleDelete(project.id)} style={btnDeleteStyle}>
-                Supprimer
-              </button>
+            <div className="col-span-3 text-slate-600 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+              Catégorie
             </div>
+            <div className="col-span-3 text-right text-slate-600 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+              Actions
+            </div>
+          </div>
 
-          </article>
-        ))}
+          {/* Lignes du tableau */}
+          {projects.length === 0 ? (
+            <div className="p-8 text-center text-slate-600 font-['Inter']">Aucun projet trouvé. Créez votre premier projet !</div>
+          ) : (
+            <div className="flex flex-col">
+              {projects.map((project) => (
+                <div 
+                  key={project.id} 
+                  className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start md:items-center px-6 py-5 border-b border-stone-300 last:border-0 hover:bg-stone-50 transition-colors"
+                >
+                  
+                  {/* Titre */}
+                  <div className="md:col-span-6">
+                    <h2 className="text-zinc-900 text-base md:text-lg font-semibold font-['Inter'] leading-7">
+                      {project.title}
+                    </h2>
+                  </div>
+
+                  {/* Catégorie */}
+                  <div className="md:col-span-3 flex items-center">
+                    <span className="px-3 py-1 bg-zinc-100 border border-stone-300 rounded-sm text-slate-600 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+                      {project.category || "PROJET"}
+                    </span>
+                  </div>
+
+                  {/* Actions (Modifier / Supprimer) */}
+                  <div className="md:col-span-3 flex flex-wrap justify-start md:justify-end gap-2 mt-4 md:mt-0">
+                    
+                    <Link 
+                      to={`/admin/projects/${project.id}/edit`} 
+                      className="px-4 py-2 border border-blue-950 rounded-sm hover:bg-blue-50 transition-colors flex items-center gap-2 group"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5 text-blue-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                      </svg>
+                      <span className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+                        Modifier
+                      </span>
+                    </Link>
+
+                    <button 
+                      onClick={() => handleDelete(project.id, project.title)} 
+                      className="px-4 py-2 bg-rose-200 hover:bg-rose-300 transition-colors rounded-sm flex items-center gap-2 cursor-pointer"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5 text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                      <span className="text-red-800 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+                        Supprimer
+                      </span>
+                    </button>
+
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+        </div>
       </div>
     </main>
   );
