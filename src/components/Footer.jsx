@@ -4,7 +4,7 @@ export function Footer() {
 
   return (
     <footer className="w-full bg-stone-50 border-t border-stone-300 flex justify-center items-center">
-      <div className="w-full max-w-[1200px] px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div className="w-full max-w-300 px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
         
         {/* Copyright */}
         <div className="flex flex-col justify-start items-center md:items-start text-center md:text-left">
@@ -16,7 +16,7 @@ export function Footer() {
         {/* Liens Réseaux Sociaux */}
         <div className="flex justify-center items-center gap-6">
           <a 
-            href="https://github.com/ton-profil" 
+            href="https://github.com/Nacer-atoui" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-slate-600 hover:text-blue-950 transition-colors text-base font-normal font-['Inter'] leading-6"
@@ -24,20 +24,12 @@ export function Footer() {
             GitHub
           </a>
           <a 
-            href="https://linkedin.com/in/ton-profil" 
+            href="http://www.linkedin.com/in/nacer-atoui" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-slate-600 hover:text-blue-950 transition-colors text-base font-normal font-['Inter'] leading-6"
           >
             LinkedIn
-          </a>
-          <a 
-            href="https://twitter.com/ton-profil" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-slate-600 hover:text-blue-950 transition-colors text-base font-normal font-['Inter'] leading-6"
-          >
-            Twitter
           </a>
         </div>
 
