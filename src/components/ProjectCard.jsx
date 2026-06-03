@@ -14,7 +14,7 @@ export function ProjectCard({ id, title, image_url, description, tags = ["PROJET
       </div>
 
       {/* Contenu */}
-      <div className={`p-6 flex flex-col flex-grow ${isFeatured ? 'md:p-8' : ''}`}>
+      <div className={`p-6 flex flex-col grow ${isFeatured ? 'md:p-8' : ''}`}>
         
         {/* Badges / Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
@@ -31,7 +31,7 @@ export function ProjectCard({ id, title, image_url, description, tags = ["PROJET
         </h3>
         
         {/* Description */}
-        <p className="text-slate-600 text-base font-normal font-['Inter'] leading-relaxed mb-6 flex-grow line-clamp-4">
+        <p className="text-slate-600 text-base font-normal font-['Inter'] leading-relaxed mb-6 grow line-clamp-4">
           {description}
         </p>
         
