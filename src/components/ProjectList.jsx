@@ -22,6 +22,7 @@ export function ProjectList() {
     };
 
     fetchProjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // --- STYLES DES ÉTATS (Chargement, Erreur) ---
@@ -52,18 +53,14 @@ export function ProjectList() {
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           
           {projects.map((proj, index) => {
-            // Transforme ta catégorie simple en tableau pour correspondre au design, 
-            // ou utilise directement un tableau si ton API l'envoie.
-            const projectTags = proj.tags ? proj.tags : [proj.category || "PROJET"];
-
             return (
               <ProjectCard
                 key={proj.id}
                 id={proj.id}
                 title={proj.title}
-                image_url={proj.image_url}
                 description={proj.description}
-                tags={projectTags}
+                images={proj.images}   
+                stacks={proj.stacks}   
                 // Astuce : On rend le 3ème élément (index 2) ou le 6ème (index 5) plus grand pour casser la symétrie
                 isFeatured={index === 2 || index === 5} 
               />

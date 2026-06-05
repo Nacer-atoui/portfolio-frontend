@@ -21,10 +21,10 @@ export function RecentProjects() {
     };
 
     fetchProjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // --- STYLES DES ÉTATS (Chargement, Erreur) ---
-  // On garde le même fond que la section pour que ce soit invisible à l'œil pendant le chargement
   const stateContainerClass = "w-full py-28 bg-zinc-100 flex justify-center items-center";
   const stateTextClass = "text-center text-blue-950 text-xl font-medium font-['Inter']";
 
@@ -71,9 +71,9 @@ export function RecentProjects() {
               key={proj.id}
               id={proj.id}
               title={proj.title}
-              image_url={proj.image_url}
               description={proj.description}
-              category={proj.category} // À passer si ton API le fournit
+              images={proj.images}   
+              stacks={proj.stacks}   
             />
           ))}
         </div>

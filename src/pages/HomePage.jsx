@@ -10,14 +10,14 @@ export function HomePage() {
         backgroundColor: "#121212",
         color: "#f8f9fa",
         minHeight: "100vh",
-        fontFamily: "'Inter', sans-serif, system-ui",
+        fontFamily: "'Inter'",
       }}
     >
       {/* --- ZONE HERO --- */}
       <section className="w-full bg-stone-50 border-b border-stone-300 flex justify-center items-center py-16 md:py-28">
-        <div className="w-full max-w-[1200px] px-6 flex flex-col md:flex-row justify-between items-center gap-12">
+        <div className="w-full max-w-300 px-6 flex flex-col md:flex-row justify-between items-center gap-12">
           {/* Colonne Gauche : Textes et Actions */}
-          <div className="w-full md:max-w-[656px] flex flex-col justify-start items-start gap-6">
+          <div className="w-full md:max-w-164 flex flex-col justify-start items-start gap-6">
             {/* Titre Principal */}
             <h1 className="text-gray-950 text-4xl md:text-5xl font-extrabold font-['Inter'] leading-tight md:leading-[52.80px]">
               Architecture.
