@@ -21,20 +21,20 @@ export function CreateProjectPage() {
   });
 
   // Gestion dynamique des technologies (Stacks)
-  const { 
-    fields: stackFields, 
-    append: appendStack, 
-    remove: removeStack 
+  const {
+    fields: stackFields,
+    append: appendStack,
+    remove: removeStack,
   } = useFieldArray({
     control,
     name: "stacks",
   });
 
   // Gestion dynamique des images
-  const { 
-    fields: imageFields, 
-    append: appendImage, 
-    remove: removeImage 
+  const {
+    fields: imageFields,
+    append: appendImage,
+    remove: removeImage,
   } = useFieldArray({
     control,
     name: "images",
@@ -61,7 +61,6 @@ export function CreateProjectPage() {
   return (
     <main className="w-full min-h-screen bg-stone-50 flex justify-center items-start pt-12 pb-24 px-6">
       <div className="w-full max-w-3xl flex flex-col gap-10">
-        
         <div className="flex flex-col gap-2">
           <h1 className="text-gray-950 text-3xl font-bold font-['Inter'] leading-10">
             Édition du Projet
@@ -78,32 +77,55 @@ export function CreateProjectPage() {
           {/* --- SECTION 1 : INFOS DE BASE DU PROJET --- */}
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-2">
-              <label htmlFor="title" className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+              <label
+                htmlFor="title"
+                className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase"
+              >
                 Titre du projet *
               </label>
               <input
                 id="title"
                 type="text"
                 className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Inter']"
-                {...register("title", { required: "Le titre est obligatoire." })}
+                {...register("title", {
+                  required: "Le titre est obligatoire.",
+                })}
               />
+              {errors.title && (
+                <span className="text-red-500 text-xs font-semibold mt-1">
+                  {errors.title.message}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="description" className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+              <label
+                htmlFor="description"
+                className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase"
+              >
                 Description *
               </label>
               <textarea
                 id="description"
                 rows="5"
                 className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Inter'] resize-y"
-                {...register("description", { required: "La description est obligatoire." })}
+                {...register("description", {
+                  required: "La description est obligatoire.",
+                })}
               />
+              {errors.description && (
+                <span className="text-red-500 text-xs font-semibold mt-1">
+                  {errors.description.message}
+                </span>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="flex flex-col gap-2">
-                <label htmlFor="github_url" className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                <label
+                  htmlFor="github_url"
+                  className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase"
+                >
                   URL GitHub
                 </label>
                 <input
@@ -115,7 +137,10 @@ export function CreateProjectPage() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="demo_url" className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                <label
+                  htmlFor="demo_url"
+                  className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase"
+                >
                   URL de la démo
                 </label>
                 <input
@@ -149,10 +174,17 @@ export function CreateProjectPage() {
                     type="url"
                     placeholder="https://..."
                     className="w-full px-3 py-2 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
-                    {...register(`images.${index}.image_url`, { required: "L'URL est requise" })}
+                    {...register(`images.${index}.image_url`, {
+                      required: "L'URL est requise",
+                    })}
                   />
+                  {errors.images?.[index]?.image_url && (
+                    <span className="text-red-500 text-xs font-semibold mt-1">
+                      {errors.images[index].image_url.message}
+                    </span>
+                  )}
                 </div>
-                
+
                 {imageFields.length > 1 && (
                   <button
                     type="button"
@@ -183,8 +215,10 @@ export function CreateProjectPage() {
             </div>
 
             {stackFields.map((item, index) => (
-              <div key={item.id} className="p-4 border border-stone-200 bg-stone-50/50 rounded-sm flex flex-col gap-4 relative">
-                
+              <div
+                key={item.id}
+                className="p-4 border border-stone-200 bg-stone-50/50 rounded-sm flex flex-col gap-4 relative"
+              >
                 {stackFields.length > 1 && (
                   <button
                     type="button"
@@ -197,16 +231,25 @@ export function CreateProjectPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div className="flex flex-col gap-2">
-                    <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">Nom *</label>
+                    <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                      Nom *
+                    </label>
                     <input
                       type="text"
                       className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
                       {...register(`stacks.${index}.name`, { required: true })}
                     />
+                    {errors.stacks?.[index]?.name && (
+                      <span className="text-red-500 text-xs font-semibold mt-1">
+                        {errors.stacks[index].name.message}
+                      </span>
+                    )}
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">Type *</label>
+                    <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                      Type *
+                    </label>
                     <select
                       className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
                       {...register(`stacks.${index}.type`, { required: true })}
@@ -218,11 +261,18 @@ export function CreateProjectPage() {
                       <option value="DevOps">DevOps</option>
                       <option value="Design">Design</option>
                     </select>
+                    {errors.stacks?.[index]?.type && (
+                      <span className="text-red-500 text-xs font-semibold mt-1">
+                        {errors.stacks[index].type.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">URL du Logo</label>
+                  <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                    URL du Logo
+                  </label>
                   <input
                     type="url"
                     className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
@@ -243,12 +293,22 @@ export function CreateProjectPage() {
 
           {/* --- ACTIONS --- */}
           <div className="pt-8 border-t border-stone-300 flex flex-wrap justify-end items-center gap-4">
-            <Link to="/admin" className="px-6 py-3 border border-gray-900 hover:bg-gray-100 transition-colors rounded-sm">
-              <span className="text-gray-900 text-xs font-bold font-['Inter'] uppercase">Annuler</span>
+            <Link
+              to="/admin"
+              className="px-6 py-3 border border-gray-900 hover:bg-gray-100 transition-colors rounded-sm"
+            >
+              <span className="text-gray-900 text-xs font-bold font-['Inter'] uppercase">
+                Annuler
+              </span>
             </Link>
 
-            <button type="submit" className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm">
-              <span className="text-white text-xs font-bold font-['Inter'] uppercase">Enregistrer le projet</span>
+            <button
+              type="submit"
+              className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm"
+            >
+              <span className="text-white text-xs font-bold font-['Inter'] uppercase">
+                Enregistrer le projet
+              </span>
             </button>
           </div>
         </form>

@@ -26,9 +26,9 @@ it("affiche la description du projet", () => {
 it("affiche la stack du projet", () => {
   render(
     <MemoryRouter>
-      <ProjectCard title="Symphony Project 1" description="Mon nouveau projet symfony" />
+      <ProjectCard title="Symphony Project 1" description="Mon nouveau projet symfony" tech_stack="React" />
     </MemoryRouter>,
   );
 
-  expect(screen.getByText("PROJET")).toBeInTheDocument();
+  expect(screen.getByText("React")).toBeInTheDocument();
 });

@@ -18,7 +18,7 @@ it("Le lien github s'affiche correctement dans le footer", () => {
 
 });
 
-it("Le lien github s'affiche correctement dans le footer", () => {
+it("Le lien LinkedIn s'affiche correctement dans le footer", () => {
   render(
     <MemoryRouter>
       <Footer />
