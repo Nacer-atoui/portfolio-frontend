@@ -29,11 +29,11 @@ export function HomePage() {
               {/* 2. On insère le composant TypeAnimation ici */}
               <TypeAnimation
                 sequence={[
-                  "Précision.", // Mot 1
+                  "Visibilité.", // Mot 1
                   2000,         // Pause de 2 secondes
                   "Fluidité.",  // Mot 2
                   2000,
-                  "Scalabilité.", // Mot 3
+                  "Impact.", // Mot 3
                   2000,
                   "Performance.", // Mot 4
                   2000,
@@ -46,12 +46,9 @@ export function HomePage() {
               />
             </h1>
 
-            {/* Description */}
+            {/* Description avec le nouveau texte */}
             <p className="text-slate-600 text-base md:text-lg font-normal font-['Inter'] leading-relaxed max-w-[512px]">
-              Conception d'interfaces web robustes et scalables.
-              <br />
-              Expertise technique au service de l'expérience utilisateur, avec
-              une approche minimaliste et performante.
+              Je suis Nacer Atoui, <strong>développeur web</strong>. Je conçois des interfaces <strong>optimisées et performantes</strong> pour booster votre visibilité et offrir une <strong>expérience utilisateur</strong> irréprochable.
             </p>
 
             {/* Boutons d'action */}
@@ -63,12 +60,15 @@ export function HomePage() {
                 Voir les projets
               </Link>
 
-              <Link
-                to="/contact"
-                className="px-6 py-3 rounded-sm border border-blue-950 hover:bg-blue-50 transition-colors text-center text-blue-950 text-base font-medium font-['Inter'] leading-6"
+              <button
+                onClick={(e) => {
+                  e.preventDefault(); // Empêche le comportement par défaut du navigateur
+                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="px-6 py-3 rounded-sm border border-blue-950 hover:bg-blue-50 transition-colors text-center text-blue-950 text-base font-medium font-['Inter'] leading-6 cursor-pointer"
               >
                 Me contacter
-              </Link>
+              </button>
             </div>
           </div>
 
@@ -88,7 +88,7 @@ export function HomePage() {
       <RecentProjects />
 
       {/* --- ZONE CONTACT --- */}
-      <section className="w-full bg-zinc-100 py-16 md:py-28 flex justify-center items-center px-6">
+      <section id="contact" className="w-full bg-zinc-100 py-16 md:py-28 flex justify-center items-center px-6">
         <div className="w-full max-w-md flex flex-col justify-start items-center gap-10">
           <div className="w-full flex flex-col justify-start items-center gap-3.5 text-center">
             <h2 className="text-gray-950 text-3xl md:text-4xl font-bold font-['Inter'] leading-10">
