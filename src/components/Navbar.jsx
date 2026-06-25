@@ -45,8 +45,8 @@ export function Navbar() {
               </button>
             </>
           ) : (
-            <NavLink to="/login" className={getLinkClasses}>
-              Connexion
+            <NavLink to="/about" className={getLinkClasses}>
+              À propos
             </NavLink>
           )}
         </div>

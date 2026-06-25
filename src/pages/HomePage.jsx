@@ -2,6 +2,8 @@ import { ContactForm } from "../components/ContactForm";
 import { Link } from "react-router-dom";
 import { RecentProjects } from "../components/RecentProject";
 import { Footer } from "../components/Footer";
+// 1. On importe la librairie
+import { TypeAnimation } from "react-type-animation";
 
 export function HomePage() {
   return (
@@ -18,11 +20,30 @@ export function HomePage() {
         <div className="w-full max-w-300 px-6 flex flex-col md:flex-row justify-between items-center gap-12">
           {/* Colonne Gauche : Textes et Actions */}
           <div className="w-full md:max-w-164 flex flex-col justify-start items-start gap-6">
+            
             {/* Titre Principal */}
             <h1 className="text-gray-950 text-4xl md:text-5xl font-extrabold font-['Inter'] leading-tight md:leading-[52.80px]">
-              Architecture.
+              Développement.
               <br />
-              Code. Précision.
+              Code.{" "}
+              {/* 2. On insère le composant TypeAnimation ici */}
+              <TypeAnimation
+                sequence={[
+                  "Précision.", // Mot 1
+                  2000,         // Pause de 2 secondes
+                  "Fluidité.",  // Mot 2
+                  2000,
+                  "Scalabilité.", // Mot 3
+                  2000,
+                  "Performance.", // Mot 4
+                  2000,
+                ]}
+                wrapper="span" // S'intègre comme un simple <span> dans ton <h1>
+                speed={50} // Vitesse de frappe
+                deletionSpeed={50} // Vitesse d'effacement
+                repeat={Infinity} // Tourne en boucle
+                className="text-blue-950 inline-block" // Couleur accentuée pour le mettre en valeur
+              />
             </h1>
 
             {/* Description */}
@@ -35,7 +56,6 @@ export function HomePage() {
 
             {/* Boutons d'action */}
             <div className="w-full flex flex-wrap justify-start items-center gap-4 pt-4">
-              {/* Bouton Principal - Lié à tes projets */}
               <Link
                 to="/projects"
                 className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm text-center text-white text-base font-medium font-['Inter'] leading-6 shadow-sm"
@@ -43,7 +63,6 @@ export function HomePage() {
                 Voir les projets
               </Link>
 
-              {/* Bouton Secondaire - Lié au contact */}
               <Link
                 to="/contact"
                 className="px-6 py-3 rounded-sm border border-blue-950 hover:bg-blue-50 transition-colors text-center text-blue-950 text-base font-medium font-['Inter'] leading-6"
@@ -55,11 +74,10 @@ export function HomePage() {
 
           {/* Colonne Droite : Image / Avatar */}
           <div className="w-full md:w-auto flex justify-center items-center">
-            {/* Le conteneur parent donne la "perspective" 3D pour éviter que l'image paraisse écrasée en tournant */}
             <div className="w-full max-w-[384px] aspect-square perspective-[1000px]">
               <img
-                className="w-full h-full rounded-xl border border-stone-300 object-cover shadow-sm  transition-all duration-1000 ease-in-out hover:transform-[rotateY(180deg)] hover:grayscale"
-                src="src/assets/Photo_3.JPG"
+                className="w-full h-full rounded-xl border border-stone-300 object-cover shadow-sm transition-all duration-1000 ease-in-out hover:transform-[rotateY(180deg)] hover:grayscale"
+                src="https://res.cloudinary.com/dalblqu3b/image/upload/v1782307274/Photo_3_brzfqi.jpg"
                 alt="Illustration Nacer Atoui - Développeur Web"
               />
             </div>
@@ -72,7 +90,6 @@ export function HomePage() {
       {/* --- ZONE CONTACT --- */}
       <section className="w-full bg-zinc-100 py-16 md:py-28 flex justify-center items-center px-6">
         <div className="w-full max-w-md flex flex-col justify-start items-center gap-10">
-          {/* En-tête de la section */}
           <div className="w-full flex flex-col justify-start items-center gap-3.5 text-center">
             <h2 className="text-gray-950 text-3xl md:text-4xl font-bold font-['Inter'] leading-10">
               Démarrer un projet
@@ -83,8 +100,6 @@ export function HomePage() {
               web.
             </p>
           </div>
-
-          {/* Le vrai formulaire sémantique */}
 
           <ContactForm />
         </div>

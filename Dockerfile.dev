@@ -1,0 +1,11 @@
+FROM node:lts-alpine
+
+WORKDIR /app
+
+# On installe juste les dépendances
+COPY package*.json ./
+RUN npm install
+
+# Pas besoin de COPY . . car on va utiliser les volumes !
+# Pas de Nginx, on lance le serveur de développement Vite
+CMD ["npm", "run", "dev"]

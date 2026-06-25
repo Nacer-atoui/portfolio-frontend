@@ -9,6 +9,7 @@ import { ProjectDetailPage } from "./pages/ProjectDetailPage";
 import { AdminPage } from "./pages/admin/AdminPage";
 import { CreateProjectPage } from "./pages/admin/CreateProjectPage";
 import { EditProjectPage } from "./pages/admin/EditProjectPage";
+import { AboutPage } from "./pages/AboutPage";
 import { Navbar } from "./components/Navbar";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:id" element={<ProjectDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route
           path="/admin"
           element={
