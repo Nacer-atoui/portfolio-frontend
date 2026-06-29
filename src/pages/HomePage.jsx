@@ -1,37 +1,38 @@
-import { ContactForm } from "../components/ContactForm";
+import { Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
-import { RecentProjects } from "../components/RecentProject";
 import { Footer } from "../components/Footer";
 // 1. On importe la librairie
 import { TypeAnimation } from "react-type-animation";
 
+const RecentProjects = lazy(() =>
+  import("../components/RecentProject").then((mod) => ({
+    default: mod.RecentProjects,
+  })),
+);
+const ContactForm = lazy(() =>
+  import("../components/ContactForm").then((mod) => ({
+    default: mod.ContactForm,
+  })),
+);
+
 export function HomePage() {
   return (
-    <main
-      style={{
-        backgroundColor: "#121212",
-        color: "#f8f9fa",
-        minHeight: "100vh",
-        fontFamily: "'Inter'",
-      }}
-    >
+    <main className="bg-[#121212] text-[#f8f9fa] min-h-screen font-['Inter']">
       {/* --- ZONE HERO --- */}
       <section className="w-full bg-stone-50 border-b border-stone-300 flex justify-center items-center py-16 md:py-28">
         <div className="w-full max-w-300 px-6 flex flex-col md:flex-row justify-between items-center gap-12">
           {/* Colonne Gauche : Textes et Actions */}
           <div className="w-full md:max-w-164 flex flex-col justify-start items-start gap-6">
-            
             {/* Titre Principal */}
             <h1 className="text-gray-950 text-4xl md:text-5xl font-extrabold font-['Inter'] leading-tight md:leading-[52.80px]">
               Développement.
               <br />
-              Code.{" "}
-              {/* 2. On insère le composant TypeAnimation ici */}
+              Code. {/* 2. On insère le composant TypeAnimation ici */}
               <TypeAnimation
                 sequence={[
                   "Visibilité.", // Mot 1
-                  2000,         // Pause de 2 secondes
-                  "Fluidité.",  // Mot 2
+                  2000, // Pause de 2 secondes
+                  "Fluidité.", // Mot 2
                   2000,
                   "Impact.", // Mot 3
                   2000,
@@ -48,7 +49,10 @@ export function HomePage() {
 
             {/* Description avec le nouveau texte */}
             <p className="text-slate-600 text-base md:text-lg font-normal font-['Inter'] leading-relaxed max-w-[512px]">
-              Je suis Nacer Atoui, <strong>développeur web</strong>. Je conçois des interfaces <strong>optimisées et performantes</strong> pour booster votre visibilité et offrir une <strong>expérience utilisateur</strong> irréprochable.
+              Je suis Nacer Atoui, <strong>développeur web</strong>. Je conçois
+              des interfaces <strong>optimisées et performantes</strong> pour
+              booster votre visibilité et offrir une{" "}
+              <strong>expérience utilisateur</strong> irréprochable.
             </p>
 
             {/* Boutons d'action */}
@@ -63,7 +67,9 @@ export function HomePage() {
               <button
                 onClick={(e) => {
                   e.preventDefault(); // Empêche le comportement par défaut du navigateur
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                  document
+                    .getElementById("contact")
+                    ?.scrollIntoView({ behavior: "smooth" });
                 }}
                 className="px-6 py-3 rounded-sm border border-blue-950 hover:bg-blue-50 transition-colors text-center text-blue-950 text-base font-medium font-['Inter'] leading-6 cursor-pointer"
               >
@@ -76,19 +82,33 @@ export function HomePage() {
           <div className="w-full md:w-auto flex justify-center items-center">
             <div className="w-full max-w-[384px] aspect-square perspective-[1000px]">
               <img
-                className="w-full h-full rounded-xl border border-stone-300 object-cover shadow-sm transition-all duration-1000 ease-in-out hover:transform-[rotateY(180deg)] hover:grayscale"
-                src="https://res.cloudinary.com/dalblqu3b/image/upload/v1782307274/Photo_3_brzfqi.jpg"
+                className="w-full h-full rounded-xl border border-stone-300 object-cover shadow-sm hover:grayscale"
+                src="https://res.cloudinary.com/dalblqu3b/image/upload/v1782459522/Photo_3_sb9rsx.webp"
                 alt="Illustration Nacer Atoui - Développeur Web"
+                fetchPriority="high" /* Indique au navigateur de la charger en priorité absolue */
+                width="384"
+                height="384"
               />
             </div>
           </div>
         </div>
       </section>
 
-      <RecentProjects />
+      <Suspense
+        fallback={
+          <div className="h-64 flex items-center justify-center text-slate-500">
+            Chargement des projets...
+          </div>
+        }
+      >
+        <RecentProjects />
+      </Suspense>
 
       {/* --- ZONE CONTACT --- */}
-      <section id="contact" className="w-full bg-zinc-100 py-16 md:py-28 flex justify-center items-center px-6">
+      <section
+        id="contact"
+        className="w-full bg-zinc-100 py-16 md:py-28 flex justify-center items-center px-6"
+      >
         <div className="w-full max-w-md flex flex-col justify-start items-center gap-10">
           <div className="w-full flex flex-col justify-start items-center gap-3.5 text-center">
             <h2 className="text-gray-950 text-3xl md:text-4xl font-bold font-['Inter'] leading-10">
@@ -100,8 +120,15 @@ export function HomePage() {
               web.
             </p>
           </div>
-
-          <ContactForm />
+          <Suspense
+            fallback={
+              <div className="h-64 flex items-center justify-center text-slate-500">
+                Chargement du formulaire...
+              </div>
+            }
+          >
+            <ContactForm />
+          </Suspense>
         </div>
       </section>
 

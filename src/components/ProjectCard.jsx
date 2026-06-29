@@ -24,7 +24,7 @@ export function ProjectCard({ id, title, images = [], description, stacks = [], 
       {/* --- ZONE IMAGE AVEC CARROUSEL --- */}
       <div className={`relative w-full bg-zinc-100 overflow-hidden group/carousel ${isFeatured ? 'h-64 md:h-80' : 'h-64'}`}>
         <img 
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+          className="w-full h-full object-cover" 
           // On affiche l'image correspondant à l'index actuel
           src={images?.[currentImageIndex]?.image_url || "https://placehold.co/366x256"} 
           alt={`Aperçu de ${title}`} 
@@ -64,7 +64,7 @@ export function ProjectCard({ id, title, images = [], description, stacks = [], 
             </span>
           ))}
           {stacks.length > 3 && (
-            <span className="px-2 py-1 bg-zinc-50 rounded-sm text-slate-400 text-xs font-bold font-['Inter'] uppercase leading-3 tracking-wide">
+            <span className="px-2 py-1 bg-zinc-100 rounded-sm text-slate-600 text-xs font-bold font-['Inter'] uppercase leading-3 tracking-wide">
               +{stacks.length - 3}
             </span>
           )}
