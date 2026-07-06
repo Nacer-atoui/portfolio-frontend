@@ -1,60 +1,43 @@
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { useFetch } from "../hooks/apiFetch";
-import { toast } from "react-toast";
+import { useState } from "react";
 
 export function ContactForm() {
-  const { apiFetch } = useFetch();
-  const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  // On utilise "name" au lieu de "nom" pour correspondre à l'attribut name="name" de l'input HTML
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState(""); // Pour afficher un message de succès/erreur
 
-  const handleSubmitForm = async (data) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("Envoi en cours...");
+
     try {
-      const result = await apiFetch("/contact/", {
+      // On pointe bien vers le port 3001 de ton backend Express
+      const response = await fetch("http://localhost:3001/api/contact", {
         method: "POST",
-        body: JSON.stringify(data), 
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // On s'assure d'envoyer les clés que ton backend attend (nom, email, message)
+        body: JSON.stringify({
+          nom: formData.name, 
+          email: formData.email,
+          message: formData.message
+        }),
       });
-      
-      toast.success("Message envoyé !");
-      reset();
-    
+
+      if (response.ok) {
+        setStatus("Message envoyé avec succès !");
+        setFormData({ name: "", email: "", message: "" }); // On vide le formulaire
+      } else {
+        setStatus("Une erreur s'est produite lors de l'envoi.");
+      }
     } catch (error) {
-      console.error("Erreur lors de l'envoi :", error);
+      console.error(error);
+      setStatus("Erreur de connexion au serveur.");
     }
-  };
-
-  // --- DÉFINITION DES STYLES (Thème sombre & Or) ---
-  const labelStyle = {
-    color: "#a0a0a0",
-    fontWeight: "600",
-    fontSize: "0.9rem",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
-    display: "block",
-    marginBottom: "0.5rem"
-  };
-
-  const inputStyle = {
-    width: "100%",
-    padding: "1rem",
-    backgroundColor: "#121212", // Fond très sombre
-    border: "1px solid #333", // Bordure discrète
-    borderRadius: "8px",
-    color: "#f8f9fa",
-    fontSize: "1rem",
-    boxSizing: "border-box",
-    fontFamily: "inherit"
-  };
-
-  const errorStyle = {
-    color: "#ff6b6b", // Rouge doux adapté au mode sombre
-    fontSize: "0.85rem",
-    margin: "0.5rem 0 0 0"
   };
 
   return (
@@ -65,64 +48,78 @@ export function ContactForm() {
       <h1 style={{ display: "none" }}>Contact</h1>
 
       <form 
-          onSubmit={handleSubmit} 
-          className="w-full flex flex-col justify-start items-start gap-6"
+        onSubmit={handleSubmit} 
+        className="w-full flex flex-col justify-start items-start gap-6"
+      >
+        
+        {/* Champ Nom & Prénom */}
+        <div className="w-full flex flex-col gap-2">
+          <label htmlFor="name" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+            Nom & Prénom
+          </label>
+          <input 
+            type="text" 
+            id="name"
+            name="name"
+            value={formData.name} // On relie la valeur à l'état React
+            onChange={handleChange} // On met à jour l'état quand l'utilisateur tape
+            placeholder="John Doe" 
+            className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
+            required
+          />
+        </div>
+
+        {/* Champ Email */}
+        <div className="w-full flex flex-col gap-2">
+          <label htmlFor="email" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+            Email
+          </label>
+          <input 
+            type="email" 
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="john@example.com" 
+            className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
+            required
+          />
+        </div>
+
+        {/* Champ Message */}
+        <div className="w-full flex flex-col gap-2">
+          <label htmlFor="message" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+            Message
+          </label>
+          <textarea 
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            rows="5"
+            placeholder="Détaillez votre projet..." 
+            className="w-full px-4 py-3 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500 resize-y"
+            required
+          ></textarea>
+        </div>
+
+        {/* Bouton de soumission */}
+        <button 
+          type="submit" 
+          disabled={status === "Envoi en cours..."} // On désactive le bouton pendant l'envoi
+          className="w-full py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm text-center text-white text-base font-medium font-['Inter'] leading-6 cursor-pointer shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          
-          {/* Champ Nom & Prénom */}
-          <div className="w-full flex flex-col gap-2">
-            <label htmlFor="name" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
-              Nom & Prénom
-            </label>
-            <input 
-              type="text" 
-              id="name"
-              name="name"
-              placeholder="John Doe" 
-              className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
-              required
-            />
-          </div>
+          {status === "Envoi en cours..." ? "Envoi en cours..." : "Envoyer le message"}
+        </button>
 
-          {/* Champ Email */}
-          <div className="w-full flex flex-col gap-2">
-            <label htmlFor="email" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
-              Email
-            </label>
-            <input 
-              type="email" 
-              id="email"
-              name="email"
-              placeholder="john@example.com" 
-              className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
-              required
-            />
-          </div>
-
-          {/* Champ Message */}
-          <div className="w-full flex flex-col gap-2">
-            <label htmlFor="message" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
-              Message
-            </label>
-            <textarea 
-              id="message"
-              name="message"
-              rows="5"
-              placeholder="Détaillez votre projet..." 
-              className="w-full px-4 py-3 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500 resize-y"
-              required
-            ></textarea>
-          </div>
-
-          {/* Bouton de soumission */}
-          <button 
-            type="submit" 
-            className="w-full py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm text-center text-white text-base font-medium font-['Inter'] leading-6 cursor-pointer shadow-sm"
-          >
-            Envoyer le message
-          </button>
-          
-        </form>
+        {/* Affichage conditionnel du statut de l'envoi */}
+        {status && status !== "Envoi en cours..." && (
+          <p className={`w-full text-center text-sm font-medium mt-1 ${status.includes("succès") ? "text-green-600" : "text-red-500"}`}>
+            {status}
+          </p>
+        )}
+        
+      </form>
     </main>
   );
 }

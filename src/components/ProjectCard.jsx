@@ -28,6 +28,7 @@ export function ProjectCard({ id, title, images = [], description, stacks = [], 
           // On affiche l'image correspondant à l'index actuel
           src={images?.[currentImageIndex]?.image_url || "https://placehold.co/366x256"} 
           alt={`Aperçu de ${title}`} 
+          loading="lazy"
         />
 
         {/* On n'affiche les flèches que s'il y a plus d'une image */}
