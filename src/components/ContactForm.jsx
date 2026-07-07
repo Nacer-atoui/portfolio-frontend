@@ -63,7 +63,7 @@ export function ContactForm() {
             name="name"
             value={formData.name} // On relie la valeur à l'état React
             onChange={handleChange} // On met à jour l'état quand l'utilisateur tape
-            placeholder="John Doe" 
+            placeholder="Nom Prénom" 
             className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
             required
           />
@@ -80,7 +80,7 @@ export function ContactForm() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="john@example.com" 
+            placeholder="xxxx@mail.com" 
             className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
             required
           />
@@ -97,7 +97,7 @@ export function ContactForm() {
             value={formData.message}
             onChange={handleChange}
             rows="5"
-            placeholder="Détaillez votre projet..." 
+            placeholder="Votre message..." 
             className="w-full px-4 py-3 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500 resize-y"
             required
           ></textarea>
