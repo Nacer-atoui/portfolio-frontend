@@ -54,7 +54,7 @@ export function ContactForm() {
         
         {/* Champ Nom & Prénom */}
         <div className="w-full flex flex-col gap-2">
-          <label htmlFor="name" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+          <label htmlFor="name" className="text-blue-950 text-xs font-bold font-['Atkinson Hyperlegible'] leading-3 tracking-wide uppercase">
             Nom & Prénom
           </label>
           <input 
@@ -64,14 +64,14 @@ export function ContactForm() {
             value={formData.name} // On relie la valeur à l'état React
             onChange={handleChange} // On met à jour l'état quand l'utilisateur tape
             placeholder="John Doe" 
-            className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
+            className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Atkinson Hyperlegible'] placeholder-zinc-500"
             required
           />
         </div>
 
         {/* Champ Email */}
         <div className="w-full flex flex-col gap-2">
-          <label htmlFor="email" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+          <label htmlFor="email" className="text-blue-950 text-xs font-bold font-['Atkinson Hyperlegible'] leading-3 tracking-wide uppercase">
             Email
           </label>
           <input 
@@ -81,14 +81,14 @@ export function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             placeholder="john@example.com" 
-            className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
+            className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Atkinson Hyperlegible'] placeholder-zinc-500"
             required
           />
         </div>
 
         {/* Champ Message */}
         <div className="w-full flex flex-col gap-2">
-          <label htmlFor="message" className="text-blue-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+          <label htmlFor="message" className="text-blue-950 text-xs font-bold font-['Atkinson Hyperlegible'] leading-3 tracking-wide uppercase">
             Message
           </label>
           <textarea 
@@ -98,7 +98,7 @@ export function ContactForm() {
             onChange={handleChange}
             rows="5"
             placeholder="Détaillez votre projet..." 
-            className="w-full px-4 py-3 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500 resize-y"
+            className="w-full px-4 py-3 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Atkinson Hyperlegible'] placeholder-zinc-500 resize-y"
             required
           ></textarea>
         </div>
@@ -107,7 +107,7 @@ export function ContactForm() {
         <button 
           type="submit" 
           disabled={status === "Envoi en cours..."} // On désactive le bouton pendant l'envoi
-          className="w-full py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm text-center text-white text-base font-medium font-['Inter'] leading-6 cursor-pointer shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm text-center text-white text-base font-medium font-['Atkinson Hyperlegible'] leading-6 cursor-poAtkinson Hyperlegible shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {status === "Envoi en cours..." ? "Envoi en cours..." : "Envoyer le message"}
         </button>

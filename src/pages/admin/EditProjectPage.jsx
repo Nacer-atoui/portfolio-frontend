@@ -100,10 +100,10 @@ useEffect(() => {
       <div className="w-full max-w-3xl flex flex-col gap-10">
         
         <div className="flex flex-col gap-2">
-          <h1 className="text-gray-950 text-3xl font-bold font-['Inter'] leading-10">
+          <h1 className="text-gray-950 text-3xl font-bold font-['Atkinson Hyperlegible'] leading-10">
             Modification du Projet
           </h1>
-          <p className="text-slate-600 text-base md:text-lg font-normal font-['Inter'] leading-7">
+          <p className="text-slate-600 text-base md:text-lg font-normal font-['Atkinson Hyperlegible'] leading-7">
             Mettez à jour les informations, les images ou les technologies de ce projet.
           </p>
         </div>
@@ -115,32 +115,32 @@ useEffect(() => {
           {/* --- SECTION 1 : INFOS DE BASE DU PROJET --- */}
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-2">
-              <label htmlFor="title" className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+              <label htmlFor="title" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                 Titre du projet *
               </label>
               <input
                 id="title"
                 type="text"
-                className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Inter']"
+                className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Atkinson Hyperlegible']"
                 {...register("title", { required: "Le titre est obligatoire." })}
               />
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="description" className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+              <label htmlFor="description" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                 Description *
               </label>
               <textarea
                 id="description"
                 rows="5"
-                className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Inter'] resize-y"
+                className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Atkinson Hyperlegible'] resize-y"
                 {...register("description", { required: "La description est obligatoire." })}
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="flex flex-col gap-2">
-                <label htmlFor="github_url" className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                <label htmlFor="github_url" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                   URL GitHub
                 </label>
                 <input
@@ -152,7 +152,7 @@ useEffect(() => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="demo_url" className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                <label htmlFor="demo_url" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                   URL de la démo
                 </label>
                 <input
@@ -168,13 +168,13 @@ useEffect(() => {
           {/* --- SECTION 2 : IMAGES --- */}
           <div className="pt-8 border-t border-stone-300 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
-              <h2 className="text-gray-950 text-xl font-bold font-['Inter']">Galerie d'images</h2>
+              <h2 className="text-gray-950 text-xl font-bold font-['Atkinson Hyperlegible']">Galerie d'images</h2>
             </div>
 
             {imageFields.map((item, index) => (
               <div key={item.id} className="flex gap-4 items-end">
                 <div className="flex-1 flex flex-col gap-2">
-                  <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                  <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                     URL de l'image {index + 1}
                   </label>
                   <input
@@ -199,7 +199,7 @@ useEffect(() => {
             <button
               type="button"
               onClick={() => appendImage({ image_url: "" })}
-              className="mt-2 py-3 border-2 border-dashed border-stone-300 text-slate-600 hover:text-blue-950 hover:border-blue-950 hover:bg-stone-50 transition-all rounded-sm text-xs font-bold font-['Inter'] uppercase tracking-wide"
+              className="mt-2 py-3 border-2 border-dashed border-stone-300 text-slate-600 hover:text-blue-950 hover:border-blue-950 hover:bg-stone-50 transition-all rounded-sm text-xs font-bold font-['Atkinson Hyperlegible'] uppercase tracking-wide"
             >
               + Ajouter une image
             </button>
@@ -208,7 +208,7 @@ useEffect(() => {
           {/* --- SECTION 3 : STACK TECHNIQUE --- */}
           <div className="pt-8 border-t border-stone-300 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
-              <h2 className="text-gray-950 text-xl font-bold font-['Inter']">Technologies utilisées</h2>
+              <h2 className="text-gray-950 text-xl font-bold font-['Atkinson Hyperlegible']">Technologies utilisées</h2>
             </div>
 
             {stackFields.map((item, index) => (
@@ -226,7 +226,7 @@ useEffect(() => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div className="flex flex-col gap-2">
-                    <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">Nom *</label>
+                    <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">Nom *</label>
                     <input
                       type="text"
                       className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
@@ -235,7 +235,7 @@ useEffect(() => {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">Type *</label>
+                    <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">Type *</label>
                     <select
                       className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
                       {...register(`stacks.${index}.type`, { required: true })}
@@ -251,7 +251,7 @@ useEffect(() => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">URL du Logo</label>
+                  <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">URL du Logo</label>
                   <input
                     type="url"
                     className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
@@ -264,7 +264,7 @@ useEffect(() => {
             <button
               type="button"
               onClick={() => appendStack({ name: "", type: "", logo_url: "" })}
-              className="mt-2 py-3 border-2 border-dashed border-stone-300 text-slate-600 hover:text-blue-950 hover:border-blue-950 hover:bg-stone-50 transition-all rounded-sm text-xs font-bold font-['Inter'] uppercase tracking-wide"
+              className="mt-2 py-3 border-2 border-dashed border-stone-300 text-slate-600 hover:text-blue-950 hover:border-blue-950 hover:bg-stone-50 transition-all rounded-sm text-xs font-bold font-['Atkinson Hyperlegible'] uppercase tracking-wide"
             >
               + Ajouter une technologie
             </button>
@@ -273,11 +273,11 @@ useEffect(() => {
           {/* --- ACTIONS --- */}
           <div className="pt-8 border-t border-stone-300 flex flex-wrap justify-end items-center gap-4">
             <Link to="/admin" className="px-6 py-3 border border-gray-900 hover:bg-gray-100 transition-colors rounded-sm">
-              <span className="text-gray-900 text-xs font-bold font-['Inter'] uppercase">Annuler</span>
+              <span className="text-gray-900 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">Annuler</span>
             </Link>
 
-            <button type="submit" className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm shadow-sm flex justify-center items-center cursor-pointer">
-              <span className="text-white text-xs font-bold font-['Inter'] uppercase">Mettre à jour le projet</span>
+            <button type="submit" className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm shadow-sm flex justify-center items-center cursor-poAtkinson Hyperlegible">
+              <span className="text-white text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">Mettre à jour le projet</span>
             </button>
           </div>
         </form>

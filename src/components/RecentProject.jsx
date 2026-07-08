@@ -26,7 +26,7 @@ export function RecentProjects() {
 
   // --- STYLES DES ÉTATS (Chargement, Erreur) ---
   const stateContainerClass = "w-full py-28 bg-zinc-100 flex justify-center items-center";
-  const stateTextClass = "text-center text-blue-950 text-xl font-medium font-['Inter']";
+  const stateTextClass = "text-center text-blue-950 text-xl font-medium font-['Atkinson Hyperlegible']";
 
   if (loading) {
     return (
@@ -58,7 +58,7 @@ export function RecentProjects() {
         
         {/* Titre */}
         <div className="w-full flex flex-col justify-start items-start">
-          <h2 className="text-gray-950 text-3xl font-bold font-['Inter'] leading-10">
+          <h2 className="text-gray-950 text-3xl font-bold font-['Atkinson Hyperlegible'] leading-10">
             Projets Récents
           </h2>
         </div>

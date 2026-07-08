@@ -29,7 +29,7 @@ export function ProjectList() {
   const stateContainerClass =
     "w-full min-h-[50vh] bg-stone-50 flex justify-center items-center p-6";
   const stateTextClass =
-    "text-center text-blue-950 text-xl font-medium font-['Inter']";
+    "text-center text-blue-950 text-xl font-medium font-['Atkinson Hyperlegible']";
 
   if (loading)
     return (
@@ -56,10 +56,10 @@ export function ProjectList() {
         <div className="w-full max-w-[1200px] px-6 pt-28 pb-32 flex flex-col justify-start items-center gap-16 md:gap-24">
           {/* En-tête de la page */}
           <div className="w-full max-w-[672px] flex flex-col justify-start items-center gap-6 text-center">
-            <h1 className="text-gray-950 text-4xl md:text-5xl font-extrabold font-['Inter'] leading-tight md:leading-[52.80px]">
+            <h1 className="text-gray-950 text-4xl md:text-5xl font-extrabold font-['Atkinson Hyperlegible'] leading-tight md:leading-[52.80px]">
               Mes projets
             </h1>
-            <p className="text-slate-600 text-base md:text-lg font-normal font-['Inter'] leading-7">
+            <p className="text-slate-600 text-base md:text-lg font-normal font-['Atkinson Hyperlegible'] leading-7">
               Aperçu de mon travail. Une pluralité de projets — réalisés en
               équipe ou en autonomie, à des fins professionnelles ou
               d'expérimentations techniques.{" "}

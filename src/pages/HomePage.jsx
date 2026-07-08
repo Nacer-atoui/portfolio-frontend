@@ -17,14 +17,14 @@ const ContactForm = lazy(() =>
 
 export function HomePage() {
   return (
-    <main className="bg-[#121212] text-[#f8f9fa] min-h-screen font-['Inter']">
+    <main className="bg-[#121212] text-[#f8f9fa] min-h-screen font-['Atkinson Hyperlegible']">
       {/* --- ZONE HERO --- */}
       <section className="w-full bg-stone-50 border-b border-stone-300 flex justify-center items-center py-16 md:py-28">
         <div className="w-full max-w-300 px-6 flex flex-col md:flex-row justify-between items-center gap-12">
           {/* Colonne Gauche : Textes et Actions */}
           <div className="w-full md:max-w-164 flex flex-col justify-start items-start gap-6">
             {/* Titre Principal */}
-            <h1 className="text-gray-950 text-4xl md:text-5xl font-extrabold font-['Inter'] leading-tight md:leading-[52.80px]">
+            <h1 className="text-gray-950 text-4xl md:text-5xl font-bold font-['Atkinson Hyperlegible'] leading-tight md:leading-[52.80px]">
               Développement.
               <br />
               Code. {/* 2. On insère le composant TypeAnimation ici */}
@@ -48,9 +48,9 @@ export function HomePage() {
             </h1>
 
             {/* Description avec le nouveau texte */}
-            <p className="text-slate-600 text-base md:text-lg font-normal font-['Inter'] leading-relaxed max-w-[512px]">
+            <p className="text-slate-600 text-base md:text-lg font-normal font-['Atkinson Hyperlegible'] leading-relaxed max-w-[512px]">
               Je suis Nacer Atoui, <strong>développeur web</strong>. Je conçois
-              des interfaces <strong>optimisées et performantes</strong> pour
+              des Interfaces <strong>optimisées et performantes</strong> pour
               booster votre visibilité et offrir une{" "}
               <strong>expérience utilisateur</strong> irréprochable.
             </p>
@@ -59,7 +59,7 @@ export function HomePage() {
             <div className="w-full flex flex-wrap justify-start items-center gap-4 pt-4">
               <Link
                 to="/projects"
-                className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm text-center text-white text-base font-medium font-['Inter'] leading-6 shadow-sm"
+                className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm text-center text-white text-base font-medium font-['Atkinson Hyperlegible'] leading-6 shadow-sm"
               >
                 Voir les projets
               </Link>
@@ -71,7 +71,7 @@ export function HomePage() {
                     .getElementById("contact")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="px-6 py-3 rounded-sm border border-blue-950 hover:bg-blue-50 transition-colors text-center text-blue-950 text-base font-medium font-['Inter'] leading-6 cursor-pointer"
+                className="px-6 py-3 rounded-sm border border-blue-950 hover:bg-blue-50 transition-colors text-center text-blue-950 text-base font-medium font-['Atkinson Hyperlegible'] leading-6 cursor-poAtkinson Hyperlegible"
               >
                 Me contacter
               </button>
@@ -111,10 +111,10 @@ export function HomePage() {
       >
         <div className="w-full max-w-md flex flex-col justify-start items-center gap-10">
           <div className="w-full flex flex-col justify-start items-center gap-3.5 text-center">
-            <h2 className="text-gray-950 text-3xl md:text-4xl font-bold font-['Inter'] leading-10">
+            <h2 className="text-gray-950 text-3xl md:text-4xl font-bold font-['Atkinson Hyperlegible'] leading-10">
               Démarrer un projet
             </h2>
-            <p className="text-slate-600 text-base font-normal font-['Inter'] leading-relaxed">
+            <p className="text-slate-600 text-base font-normal font-['Atkinson Hyperlegible'] leading-relaxed">
               Remplissez le formulaire ci-dessous pour discuter
               <br className="hidden md:block" /> de votre prochaine architecture
               web.

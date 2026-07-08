@@ -8,7 +8,7 @@ export function Footer() {
         
         {/* Copyright */}
         <div className="flex flex-col justify-start items-center md:items-start text-center md:text-left">
-          <span className="text-gray-950 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+          <span className="text-gray-950 text-xs font-bold font-['Atkinson Hyperlegible'] leading-3 tracking-wide uppercase">
             © {currentYear} Nacer Atoui. Tous droits réservés.
           </span>
         </div>
@@ -19,7 +19,7 @@ export function Footer() {
             href="https://github.com/Nacer-atoui" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-slate-600 hover:text-blue-950 transition-colors text-base font-normal font-['Inter'] leading-6"
+            className="text-slate-600 hover:text-blue-950 transition-colors text-base font-normal font-['Atkinson Hyperlegible'] leading-6"
           >
             GitHub
           </a>
@@ -27,7 +27,7 @@ export function Footer() {
             href="http://www.linkedin.com/in/nacer-atoui" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-slate-600 hover:text-blue-950 transition-colors text-base font-normal font-['Inter'] leading-6"
+            className="text-slate-600 hover:text-blue-950 transition-colors text-base font-normal font-['Atkinson Hyperlegible'] leading-6"
           >
             LinkedIn
           </a>

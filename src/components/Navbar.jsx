@@ -9,7 +9,7 @@ export function Navbar() {
   // Elle applique la bordure et la couleur si le lien est actif
   const getLinkClasses = ({ isActive }) => {
     const baseClasses =
-      "flex flex-col justify-start items-start text-xs font-bold font-['Inter'] leading-3 tracking-wide transition-colors";
+      "flex flex-col justify-start items-start text-xs font-bold font-['Atkinson Hyperlegible'] leading-3 tracking-wide transition-colors";
     const activeClasses = "pb-1 border-b-2 border-blue-950 text-blue-950";
     const inactiveClasses = "text-slate-600 hover:text-blue-950";
 
@@ -38,14 +38,14 @@ export function Navbar() {
 
               <button
                 onClick={logout}
-                className="flex flex-col justify-start items-start bg-transparent border-none cursor-pointer p-0 text-slate-600 hover:text-blue-950 transition-colors text-xs font-bold font-['Inter'] leading-3 tracking-wide"
+                className="flex flex-col justify-start items-start bg-transparent border-none cursor-poAtkinson Hyperlegible p-0 text-slate-600 hover:text-blue-950 transition-colors text-xs font-bold font-['Atkinson Hyperlegible'] leading-3 tracking-wide"
               >
                 Déconnexion
               </button>
             </>
           ) : (
             <a
-              className="flex flex-col justify-start items-start bg-transparent border-none cursor-pointer p-0 text-slate-600 hover:text-blue-950 transition-colors text-xs font-bold font-['Inter'] leading-3 tracking-wide"
+              className="flex flex-col justify-start items-start bg-transparent border-none cursor-poAtkinson Hyperlegible p-0 text-slate-600 hover:text-blue-950 transition-colors text-xs font-bold font-['Atkinson Hyperlegible'] leading-3 tracking-wide"
               href="/#contact"
             >
               Contact

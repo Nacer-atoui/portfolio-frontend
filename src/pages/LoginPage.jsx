@@ -51,10 +51,10 @@ export function LoginPage() {
             </div>
           </div>
           
-          <h1 className="text-gray-950 text-4xl md:text-5xl font-extrabold font-['Inter'] leading-tight">
+          <h1 className="text-gray-950 text-4xl md:text-5xl font-extrabold font-['Atkinson Hyperlegible'] leading-tight">
             Accès Sécurisé
           </h1>
-          <p className="text-slate-600 text-base font-normal font-['Inter'] leading-6 mt-1">
+          <p className="text-slate-600 text-base font-normal font-['Atkinson Hyperlegible'] leading-6 mt-1">
             Authentification requise pour l'administration.
           </p>
         </div>
@@ -65,7 +65,7 @@ export function LoginPage() {
             
             {/* Champ Email */}
             <div className="flex flex-col gap-2">
-              <label htmlFor="email" className="text-zinc-900 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+              <label htmlFor="email" className="text-zinc-900 text-xs font-bold font-['Atkinson Hyperlegible'] leading-3 tracking-wide uppercase">
                 Adresse e-mail
               </label>
               <div className="relative flex items-center">
@@ -80,7 +80,7 @@ export function LoginPage() {
                   type="email" 
                   id="email"
                   placeholder="architect@devportfolio.com" 
-                  className={`w-full pl-10 pr-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-stone-700 text-base font-normal font-['Inter'] ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-stone-300 focus:ring-blue-950'}`}
+                  className={`w-full pl-10 pr-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-stone-700 text-base font-normal font-['Atkinson Hyperlegible'] ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-stone-300 focus:ring-blue-950'}`}
                   {...register("email", { required: true })}
                 />
               </div>
@@ -89,7 +89,7 @@ export function LoginPage() {
 
             {/* Champ Mot de passe */}
             <div className="flex flex-col gap-2">
-              <label htmlFor="password" className="text-zinc-900 text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+              <label htmlFor="password" className="text-zinc-900 text-xs font-bold font-['Atkinson Hyperlegible'] leading-3 tracking-wide uppercase">
                 Mot de passe
               </label>
               <div className="relative flex items-center">
@@ -104,7 +104,7 @@ export function LoginPage() {
                   type="password" 
                   id="password"
                   placeholder="••••••••••••" 
-                  className={`w-full pl-10 pr-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-stone-700 text-base font-normal font-['Inter'] tracking-widest ${errors.password ? 'border-red-500 focus:ring-red-500' : 'border-stone-300 focus:ring-blue-950'}`}
+                  className={`w-full pl-10 pr-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-stone-700 text-base font-normal font-['Atkinson Hyperlegible'] tracking-widest ${errors.password ? 'border-red-500 focus:ring-red-500' : 'border-stone-300 focus:ring-blue-950'}`}
                   {...register("password", { required: true })}
                 />
               </div>
@@ -114,9 +114,9 @@ export function LoginPage() {
             {/* Bouton de Soumission */}
             <button 
               type="submit" 
-              className="w-full mt-2 py-4 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm flex justify-center items-center gap-2 group cursor-pointer"
+              className="w-full mt-2 py-4 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm flex justify-center items-center gap-2 group cursor-poAtkinson Hyperlegible"
             >
-              <span className="text-white text-xs font-bold font-['Inter'] leading-3 tracking-wide uppercase">
+              <span className="text-white text-xs font-bold font-['Atkinson Hyperlegible'] leading-3 tracking-wide uppercase">
                 Se connecter
               </span>
               <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5 text-white transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -131,7 +131,7 @@ export function LoginPage() {
         <div className="flex justify-center items-center mt-2">
           <Link 
             to="/" 
-            className="text-slate-600 hover:text-blue-950 transition-colors text-sm font-medium font-['Inter'] underline underline-offset-4 decoration-stone-300 hover:decoration-blue-950"
+            className="text-slate-600 hover:text-blue-950 transition-colors text-sm font-medium font-['Atkinson Hyperlegible'] underline underline-offset-4 decoration-stone-300 hover:decoration-blue-950"
           >
             Retour au portfolio
           </Link>

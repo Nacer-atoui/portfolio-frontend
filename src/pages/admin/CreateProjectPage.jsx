@@ -62,10 +62,10 @@ export function CreateProjectPage() {
     <main className="w-full min-h-screen bg-stone-50 flex justify-center items-start pt-12 pb-24 px-6">
       <div className="w-full max-w-3xl flex flex-col gap-10">
         <div className="flex flex-col gap-2">
-          <h1 className="text-gray-950 text-3xl font-bold font-['Inter'] leading-10">
+          <h1 className="text-gray-950 text-3xl font-bold font-['Atkinson Hyperlegible'] leading-10">
             Édition du Projet
           </h1>
-          <p className="text-slate-600 text-base md:text-lg font-normal font-['Inter'] leading-7">
+          <p className="text-slate-600 text-base md:text-lg font-normal font-['Atkinson Hyperlegible'] leading-7">
             Ajoutez ou modifiez les détails d'un projet pour le portfolio.
           </p>
         </div>
@@ -79,14 +79,14 @@ export function CreateProjectPage() {
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="title"
-                className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase"
+                className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
               >
                 Titre du projet *
               </label>
               <input
                 id="title"
                 type="text"
-                className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Inter']"
+                className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Atkinson Hyperlegible']"
                 {...register("title", {
                   required: "Le titre est obligatoire.",
                 })}
@@ -101,14 +101,14 @@ export function CreateProjectPage() {
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="description"
-                className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase"
+                className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
               >
                 Description *
               </label>
               <textarea
                 id="description"
                 rows="5"
-                className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Inter'] resize-y"
+                className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Atkinson Hyperlegible'] resize-y"
                 {...register("description", {
                   required: "La description est obligatoire.",
                 })}
@@ -124,7 +124,7 @@ export function CreateProjectPage() {
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="github_url"
-                  className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase"
+                  className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
                 >
                   URL GitHub
                 </label>
@@ -139,7 +139,7 @@ export function CreateProjectPage() {
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="demo_url"
-                  className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase"
+                  className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
                 >
                   URL de la démo
                 </label>
@@ -156,10 +156,10 @@ export function CreateProjectPage() {
           {/* --- SECTION 2 : IMAGES (NOUVEAU) --- */}
           <div className="pt-8 border-t border-stone-300 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
-              <h2 className="text-gray-950 text-xl font-bold font-['Inter']">
+              <h2 className="text-gray-950 text-xl font-bold font-['Atkinson Hyperlegible']">
                 Galerie d'images
               </h2>
-              <p className="text-slate-600 text-sm font-normal font-['Inter']">
+              <p className="text-slate-600 text-sm font-normal font-['Atkinson Hyperlegible']">
                 Ajoutez une ou plusieurs images pour illustrer votre projet.
               </p>
             </div>
@@ -167,7 +167,7 @@ export function CreateProjectPage() {
             {imageFields.map((item, index) => (
               <div key={item.id} className="flex gap-4 items-end">
                 <div className="flex-1 flex flex-col gap-2">
-                  <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                  <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                     URL de l'image {index + 1}
                   </label>
                   <input
@@ -200,7 +200,7 @@ export function CreateProjectPage() {
             <button
               type="button"
               onClick={() => appendImage({ image_url: "" })}
-              className="mt-2 py-3 border-2 border-dashed border-stone-300 text-slate-600 hover:text-blue-950 hover:border-blue-950 hover:bg-stone-50 transition-all rounded-sm text-xs font-bold font-['Inter'] uppercase tracking-wide"
+              className="mt-2 py-3 border-2 border-dashed border-stone-300 text-slate-600 hover:text-blue-950 hover:border-blue-950 hover:bg-stone-50 transition-all rounded-sm text-xs font-bold font-['Atkinson Hyperlegible'] uppercase tracking-wide"
             >
               + Ajouter une image
             </button>
@@ -209,7 +209,7 @@ export function CreateProjectPage() {
           {/* --- SECTION 3 : STACK TECHNIQUE --- */}
           <div className="pt-8 border-t border-stone-300 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
-              <h2 className="text-gray-950 text-xl font-bold font-['Inter']">
+              <h2 className="text-gray-950 text-xl font-bold font-['Atkinson Hyperlegible']">
                 Technologies utilisées
               </h2>
             </div>
@@ -231,7 +231,7 @@ export function CreateProjectPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div className="flex flex-col gap-2">
-                    <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                    <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                       Nom *
                     </label>
                     <input
@@ -247,7 +247,7 @@ export function CreateProjectPage() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                    <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                       Type *
                     </label>
                     <select
@@ -270,7 +270,7 @@ export function CreateProjectPage() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-zinc-700 text-xs font-bold font-['Inter'] uppercase">
+                  <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                     URL du Logo
                   </label>
                   <input
@@ -285,7 +285,7 @@ export function CreateProjectPage() {
             <button
               type="button"
               onClick={() => appendStack({ name: "", type: "", logo_url: "" })}
-              className="mt-2 py-3 border-2 border-dashed border-stone-300 text-slate-600 hover:text-blue-950 hover:border-blue-950 hover:bg-stone-50 transition-all rounded-sm text-xs font-bold font-['Inter'] uppercase tracking-wide"
+              className="mt-2 py-3 border-2 border-dashed border-stone-300 text-slate-600 hover:text-blue-950 hover:border-blue-950 hover:bg-stone-50 transition-all rounded-sm text-xs font-bold font-['Atkinson Hyperlegible'] uppercase tracking-wide"
             >
               + Ajouter une technologie
             </button>
@@ -297,7 +297,7 @@ export function CreateProjectPage() {
               to="/admin"
               className="px-6 py-3 border border-gray-900 hover:bg-gray-100 transition-colors rounded-sm"
             >
-              <span className="text-gray-900 text-xs font-bold font-['Inter'] uppercase">
+              <span className="text-gray-900 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                 Annuler
               </span>
             </Link>
@@ -306,7 +306,7 @@ export function CreateProjectPage() {
               type="submit"
               className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm"
             >
-              <span className="text-white text-xs font-bold font-['Inter'] uppercase">
+              <span className="text-white text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                 Enregistrer le projet
               </span>
             </button>
