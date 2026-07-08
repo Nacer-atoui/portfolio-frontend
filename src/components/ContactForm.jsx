@@ -4,6 +4,7 @@ export function ContactForm() {
   // On utilise "name" au lieu de "nom" pour correspondre à l'attribut name="name" de l'input HTML
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState(""); // Pour afficher un message de succès/erreur
+  const apiUrl = import.meta.env.VITE_API_URL || 'https://portfolio-backend-1-i55r.onrender.com';
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,7 +16,7 @@ export function ContactForm() {
 
     try {
       // On pointe bien vers le port 3001 de ton backend Express
-      const response = await fetch("http://localhost:3001/api/contact", {
+      const response = await fetch(`${apiUrl}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
