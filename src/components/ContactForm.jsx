@@ -23,7 +23,7 @@ export function ContactForm() {
         },
         // On s'assure d'envoyer les clés que ton backend attend (nom, email, message)
         body: JSON.stringify({
-          nom: formData.name, 
+          name: formData.name, 
           email: formData.email,
           message: formData.message
         }),
