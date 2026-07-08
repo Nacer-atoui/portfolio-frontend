@@ -4,6 +4,7 @@ export function ContactForm() {
   // On utilise "name" au lieu de "nom" pour correspondre à l'attribut name="name" de l'input HTML
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState(""); // Pour afficher un message de succès/erreur
+  const apiUrl = import.meta.env.VITE_API_URL || 'https://portfolio-backend-1-i55r.onrender.com';
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,14 +16,14 @@ export function ContactForm() {
 
     try {
       // On pointe bien vers le port 3001 de ton backend Express
-      const response = await fetch("http://localhost:3001/api/contact", {
+      const response = await fetch(`${apiUrl}/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         // On s'assure d'envoyer les clés que ton backend attend (nom, email, message)
         body: JSON.stringify({
-          nom: formData.name, 
+          name: formData.name, 
           email: formData.email,
           message: formData.message
         }),
@@ -63,7 +64,7 @@ export function ContactForm() {
             name="name"
             value={formData.name} // On relie la valeur à l'état React
             onChange={handleChange} // On met à jour l'état quand l'utilisateur tape
-            placeholder="John Doe" 
+            placeholder="Nom Prénom" 
             className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
             required
           />
@@ -80,7 +81,7 @@ export function ContactForm() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="john@example.com" 
+            placeholder="xxxx@mail.com" 
             className="w-full px-4 py-3.5 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500"
             required
           />
@@ -97,7 +98,7 @@ export function ContactForm() {
             value={formData.message}
             onChange={handleChange}
             rows="5"
-            placeholder="Détaillez votre projet..." 
+            placeholder="Votre message..." 
             className="w-full px-4 py-3 bg-stone-50 rounded-sm outline outline-1 outline-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-950 text-base font-normal font-['Inter'] placeholder-zinc-500 resize-y"
             required
           ></textarea>
