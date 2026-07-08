@@ -16,7 +16,7 @@ export function ContactForm() {
 
     try {
       // On pointe bien vers le port 3001 de ton backend Express
-      const response = await fetch(`${apiUrl}/api/contact`, {
+      const response = await fetch(`${apiUrl}/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
