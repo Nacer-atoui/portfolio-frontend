@@ -82,9 +82,9 @@ export function HomePage() {
           <div className="w-full md:w-auto flex justify-center items-center">
             <div className="w-full max-w-[384px] aspect-square perspective-[1000px]">
               <img
-                className="w-full h-full rounded-xl border border-stone-300 object-cover shadow-sm hover:grayscale"
+                className="w-full h-full rounded-xl border border-stone-300 object-cover shadow-sm"
                 src="https://res.cloudinary.com/dalblqu3b/image/upload/v1782459522/Photo_3_sb9rsx.webp"
-                alt="Illustration Nacer Atoui - Développeur Web"
+                alt="Photo de nacer atoui"
                 fetchPriority="high" /* Indique au navigateur de la charger en priorité absolue */
                 width="384"
                 height="384"
