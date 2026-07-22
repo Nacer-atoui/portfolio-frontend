@@ -7,14 +7,16 @@ export function useFetch() {
   async function apiFetch(endpoint, options = {}) {
     const token = localStorage.getItem("token");
 
-    // 1. On détecte si le corps de la requête est un envoi de fichier (FormData)
-    const isFormData = options.body instanceof FormData;
+    // NOUVELLE VÉRIFICATION INFAILLIBLE :
+    // Si c'est du JSON, on l'a forcément transformé en string avant.
+    // Si c'est un FormData, c'est un objet, donc typeof renverra "object".
+    const isJsonString = typeof options.body === "string";
 
     const res = await fetch(import.meta.env.VITE_API_URL + endpoint, {
       ...options,
       headers: {
-        // 2. On n'ajoute "Content-Type" que si ce N'EST PAS un FormData
-        ...(!isFormData && { "Content-Type": "application/json" }),
+        // On force le JSON uniquement si le body est une string
+        ...(isJsonString && { "Content-Type": "application/json" }),
         ...(token && { Authorization: `Bearer ${token}` }),
         ...options.headers,
       },
@@ -27,7 +29,6 @@ export function useFetch() {
       return { validationErrors: data.errors };
     }
 
-    // Gestion de l'expiration du token (optionnel mais recommandé si tu as logout ici)
     if (res.status === 401) {
       logout();
     }
