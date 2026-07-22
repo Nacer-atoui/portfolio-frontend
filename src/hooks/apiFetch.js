@@ -8,7 +8,7 @@ export function useFetch() {
     const token = localStorage.getItem("token");
 
     // 1. On détecte si le corps de la requête est un envoi de fichier (FormData)
-    const isFormData = options.body instanceof FormData;
+    const isFormData = options.body instanceof FormData || (options.body && typeof options.body.append === 'function');
 
     const res = await fetch(import.meta.env.VITE_API_URL + endpoint, {
       ...options,
