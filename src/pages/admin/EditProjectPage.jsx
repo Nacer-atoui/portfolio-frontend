@@ -5,11 +5,10 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { toast } from "react-toast";
 
 export function EditProjectPage() {
-  const { id } = useParams(); // Permet de récupérer l'ID du projet dans l'URL (/admin/edit/3)
+  const { id } = useParams();
   const { apiFetch } = useFetch();
   const navigate = useNavigate();
 
-  // On ajoute 'reset' pour pouvoir injecter les données reçues de l'API dans le formulaire
   const {
     register,
     handleSubmit,
@@ -17,53 +16,47 @@ export function EditProjectPage() {
     reset,
     formState: { errors },
   } = useForm({
-    // Valeurs par défaut vides le temps que l'API réponde
     defaultValues: {
       title: "",
       description: "",
       github_url: "",
       demo_url: "",
       stacks: [],
-      images: [], 
+      images: [],
     },
   });
 
-  // Gestion dynamique des technologies (Stacks)
-  const { 
-    fields: stackFields, 
-    append: appendStack, 
-    remove: removeStack 
+  const {
+    fields: stackFields,
+    append: appendStack,
+    remove: removeStack,
   } = useFieldArray({ control, name: "stacks" });
 
-  // Gestion dynamique des images
-  const { 
-    fields: imageFields, 
-    append: appendImage, 
-    remove: removeImage 
+  const {
+    fields: imageFields,
+    append: appendImage,
+    remove: removeImage,
   } = useFieldArray({ control, name: "images" });
 
   // --- RECUPERATION DES DONNEES AU CHARGEMENT ---
-useEffect(() => {
+  useEffect(() => {
     const fetchProjectData = async () => {
       try {
         const data = await apiFetch(`/projects/${id}`);
-        
-        // 💡 ASTUCE DEBUG : Regarde dans la console de ton navigateur
-        console.log("Données reçues du backend :", data);
 
         reset({
           ...data,
-          // On "nettoie" les tableaux pour ne garder que les colonnes qui intéressent le formulaire
-          images: data.images?.length 
-            ? data.images.map(img => ({ image_url: img.image_url })) 
-            : [{ image_url: "" }],
-            
-          stacks: data.stacks?.length 
-            ? data.stacks.map(stack => ({ 
-                name: stack.name, 
-                type: stack.type, 
-                logo_url: stack.logo_url || "" 
-              })) 
+          // On initialise les images avec leur URL existante et un champ file vide
+          images: data.images?.length
+            ? data.images.map((img) => ({ image_url: img.image_url, file: null }))
+            : [{ image_url: "", file: null }],
+
+          stacks: data.stacks?.length
+            ? data.stacks.map((stack) => ({
+                name: stack.name,
+                type: stack.type,
+                logo_url: stack.logo_url || "",
+              }))
             : [{ name: "", type: "", logo_url: "" }],
         });
       } catch (error) {
@@ -78,13 +71,38 @@ useEffect(() => {
   // --- SOUMISSION DE LA MISE A JOUR ---
   const handleSubmitForm = async (data) => {
     try {
-      // On utilise PUT ou PATCH pour une mise à jour
+      const formData = new FormData();
+
+      formData.append("title", data.title);
+      formData.append("description", data.description);
+      if (data.github_url) formData.append("github_url", data.github_url);
+      if (data.demo_url) formData.append("demo_url", data.demo_url);
+      formData.append("stacks", JSON.stringify(data.stacks));
+
+      // Gestion des images : on sépare les anciennes URLs des nouveaux fichiers
+      const existingImages = [];
+      data.images.forEach((imgObj) => {
+        // S'il y a un nouveau fichier sélectionné
+        if (imgObj.file && imgObj.file.length > 0) {
+          formData.append("image_url", imgObj.file[0]);
+        } 
+        // Sinon, si c'est une ancienne image qu'on n'a pas modifiée
+        else if (imgObj.image_url) {
+          existingImages.push(imgObj.image_url);
+        }
+      });
+
+      // On envoie les anciennes images sous forme de JSON pour que le backend 
+      // sache lesquelles conserver (à adapter selon la logique de ton backend)
+      if (existingImages.length > 0) {
+        formData.append("existing_images", JSON.stringify(existingImages));
+      }
+
       await apiFetch(`/projects/${id}`, {
-        method: "PUT", 
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        method: "PUT",
+        // ATTENTION : On enlève le Content-Type: application/json
+        // Le navigateur s'occupe de mettre multipart/form-data
+        body: formData,
       });
 
       toast.success("Projet mis à jour avec succès !");
@@ -98,7 +116,6 @@ useEffect(() => {
   return (
     <main className="w-full min-h-screen bg-stone-50 flex justify-center items-start pt-12 pb-24 px-6">
       <div className="w-full max-w-3xl flex flex-col gap-10">
-        
         <div className="flex flex-col gap-2">
           <h1 className="text-gray-950 text-3xl font-bold font-['Atkinson Hyperlegible'] leading-10">
             Modification du Projet
@@ -124,6 +141,7 @@ useEffect(() => {
                 className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Atkinson Hyperlegible']"
                 {...register("title", { required: "Le titre est obligatoire." })}
               />
+              {errors.title && <span className="text-red-500 text-xs font-semibold mt-1">{errors.title.message}</span>}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -136,6 +154,7 @@ useEffect(() => {
                 className="w-full px-4 py-3.5 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all text-gray-900 text-base font-normal font-['Atkinson Hyperlegible'] resize-y"
                 {...register("description", { required: "La description est obligatoire." })}
               />
+              {errors.description && <span className="text-red-500 text-xs font-semibold mt-1">{errors.description.message}</span>}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -165,23 +184,48 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* --- SECTION 2 : IMAGES --- */}
+          {/* --- SECTION 2 : IMAGES (ADAPTÉE POUR L'ÉDITION) --- */}
           <div className="pt-8 border-t border-stone-300 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
               <h2 className="text-gray-950 text-xl font-bold font-['Atkinson Hyperlegible']">Galerie d'images</h2>
+              <p className="text-slate-600 text-sm font-normal font-['Atkinson Hyperlegible']">
+                Gérez vos images. Uploadez un nouveau fichier pour remplacer une image existante.
+              </p>
             </div>
 
             {imageFields.map((item, index) => (
               <div key={item.id} className="flex gap-4 items-end">
                 <div className="flex-1 flex flex-col gap-2">
                   <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
-                    URL de l'image {index + 1}
+                    Image {index + 1}
                   </label>
+                  
+                  {/* Indication visuelle si une image existe déjà */}
+                  {item.image_url && (
+                    <span className="text-xs text-slate-500 mb-1">
+                      Image actuelle : <a href={item.image_url} target="_blank" rel="noreferrer" className="text-blue-600 underline">Voir</a> (Sélectionnez un fichier pour la remplacer)
+                    </span>
+                  )}
+
                   <input
-                    type="url"
-                    className="w-full px-3 py-2 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
-                    {...register(`images.${index}.image_url`, { required: "L'URL est requise" })}
+                    type="file"
+                    accept="image/*"
+                    className="w-full px-3 py-2 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 text-sm text-gray-500
+                      file:mr-4 file:py-1 file:px-3
+                      file:rounded-sm file:border-0
+                      file:text-xs file:font-semibold
+                      file:bg-blue-50 file:text-blue-950
+                      hover:file:bg-blue-100"
+                    {...register(`images.${index}.file`, {
+                      // Requis uniquement si c'est une nouvelle image (pas d'ancienne URL)
+                      required: item.image_url ? false : "Veuillez sélectionner un fichier image.",
+                    })}
                   />
+                  {errors.images?.[index]?.file && (
+                    <span className="text-red-500 text-xs font-semibold mt-1">
+                      {errors.images[index].file.message}
+                    </span>
+                  )}
                 </div>
                 
                 {imageFields.length > 1 && (
@@ -198,7 +242,7 @@ useEffect(() => {
 
             <button
               type="button"
-              onClick={() => appendImage({ image_url: "" })}
+              onClick={() => appendImage({ image_url: "", file: null })}
               className="mt-2 py-3 border-2 border-dashed border-stone-300 text-slate-600 hover:text-blue-950 hover:border-blue-950 hover:bg-stone-50 transition-all rounded-sm text-xs font-bold font-['Atkinson Hyperlegible'] uppercase tracking-wide"
             >
               + Ajouter une image
@@ -276,7 +320,7 @@ useEffect(() => {
               <span className="text-gray-900 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">Annuler</span>
             </Link>
 
-            <button type="submit" className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm shadow-sm flex justify-center items-center cursor-poAtkinson Hyperlegible">
+            <button type="submit" className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm shadow-sm flex justify-center items-center cursor-pointer">
               <span className="text-white text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">Mettre à jour le projet</span>
             </button>
           </div>
