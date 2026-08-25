@@ -84,7 +84,7 @@ export function HomePage() {
             <div className="w-full max-w-[384px] aspect-square perspective-[1000px]">
               <img
                 className="w-full h-full rounded-xl border border-stone-300 object-cover shadow-sm"
-                src="src\assets\Photo_3.jpg"
+                src="/Photo_3.jpg"
                 alt="Photo de nacer atoui"
                 fetchPriority="high" /* Indique au navigateur de la charger en priorité absolue */
                 width="384"
