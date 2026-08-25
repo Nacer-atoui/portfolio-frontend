@@ -43,7 +43,7 @@ export function HomePage() {
                 speed={50} // Vitesse de frappe
                 deletionSpeed={50} // Vitesse d'effacement
                 repeat={Infinity} // Tourne en boucle
-                className="text-blue-950 inline-block" // Couleur accentuée pour le mettre en valeur
+                className="text-blue-950 inline-block" 
               />
             </h1>
 
