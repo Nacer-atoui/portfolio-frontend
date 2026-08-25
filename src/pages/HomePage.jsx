@@ -49,10 +49,11 @@ export function HomePage() {
 
             {/* Description avec le nouveau texte */}
             <p className="text-slate-600 text-base md:text-lg font-normal font-['Atkinson Hyperlegible'] leading-relaxed max-w-[512px]">
-              Je suis Nacer Atoui, <strong>développeur web</strong>. Je conçois
-              des Interfaces <strong>optimisées et performantes</strong> pour
-              booster votre visibilité et offrir une{" "}
-              <strong>expérience utilisateur</strong> irréprochable.
+              Moi, c'est Nacer Atoui. Actuellement étudiant en développement
+              web, je me tourne vers l'ingénierie DevOps. Mon objectif :
+              concevoir des interfaces performantes tout en maîtrisant les
+              enjeux d'intégration continue, d'infrastructure et
+              d'automatisation.
             </p>
 
             {/* Boutons d'action */}
