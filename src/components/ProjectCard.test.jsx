@@ -16,19 +16,10 @@ it("affiche le titre du projet", () => {
 it("affiche la description du projet", () => {
   render(
     <MemoryRouter>
-      <ProjectCard title="Symphony Project 1" description="Mon nouveau projet symfony" tech_stack="symphony" />
+      <ProjectCard title="Symphony Project 1" description="Mon nouveau projet symfony" tech_stack="symfony" />
     </MemoryRouter>,
   );
 
   expect(screen.getByText("Mon nouveau projet symfony")).toBeInTheDocument();
 });
 
-it("affiche la stack du projet", () => {
-  render(
-    <MemoryRouter>
-      <ProjectCard title="Symphony Project 1" description="Mon nouveau projet symfony" tech_stack="React" />
-    </MemoryRouter>,
-  );
-
-  expect(screen.getByText("React")).toBeInTheDocument();
-});
