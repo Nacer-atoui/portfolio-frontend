@@ -1,0 +1,31 @@
+name: CI/CD Frontend
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - feat/*
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout du code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Installer les dépendances
+        run: npm install
+
+      - name: 🧪 Lancer les tests
+        run: npm test
