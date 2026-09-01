@@ -43,7 +43,7 @@ export function HomePage() {
                 speed={50} // Vitesse de frappe
                 deletionSpeed={50} // Vitesse d'effacement
                 repeat={Infinity} // Tourne en boucle
-                className="text-blue-950 inline-block" // Couleur accentuée pour le mettre en valeur
+                className="text-blue-950 inline-block" 
               />
             </h1>
 
@@ -84,7 +84,7 @@ export function HomePage() {
             <div className="w-full max-w-[384px] aspect-square perspective-[1000px]">
               <img
                 className="w-full h-full rounded-xl border border-stone-300 object-cover shadow-sm"
-                src="https://res.cloudinary.com/dalblqu3b/image/upload/v1782459522/Photo_3_sb9rsx.webp"
+                src="/Photo_3.jpg"
                 alt="Photo de nacer atoui"
                 fetchPriority="high" /* Indique au navigateur de la charger en priorité absolue */
                 width="384"
