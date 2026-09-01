@@ -193,10 +193,11 @@ export function CreateProjectPage() {
             {imageFields.map((item, index) => (
               <div key={item.id} className="flex gap-4 items-end">
                 <div className="flex-1 flex flex-col gap-2">
-                  <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
+                  <label htmlFor="image" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                     Fichier Image {index + 1} *
                   </label>
                   <input
+                    name="image"
                     type="file"
                     accept="image/*"
                     className="w-full px-3 py-2 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 text-sm text-gray-500
@@ -262,10 +263,11 @@ export function CreateProjectPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div className="flex flex-col gap-2">
-                    <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
+                    <label htmlFor="stackname" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                       Nom *
                     </label>
                     <input
+                      name="stackname"
                       type="text"
                       className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
                       {...register(`stacks.${index}.name`, { required: true })}
@@ -278,10 +280,11 @@ export function CreateProjectPage() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
+                    <label htmlFor="stacktype" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                       Type *
                     </label>
                     <select
+                      name="stacktype"
                       className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
                       {...register(`stacks.${index}.type`, { required: true })}
                     >
@@ -301,10 +304,11 @@ export function CreateProjectPage() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
+                  <label htmlFor="urllogo" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                     URL du Logo
                   </label>
                   <input
+                    name="urllogo"
                     type="url"
                     className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
                     {...register(`stacks.${index}.logo_url`)}
