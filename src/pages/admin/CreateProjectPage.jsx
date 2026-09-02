@@ -6,6 +6,7 @@ import { toast } from "react-toast";
 export function CreateProjectPage() {
   const { apiFetch } = useFetch();
   const navigate = useNavigate();
+  const [status, setStatus] = useState("");
 
   const {
     register,
@@ -45,6 +46,7 @@ export function CreateProjectPage() {
 
   const handleSubmitForm = async (data) => {
     try {
+      setStatus("Enregistrement du projet en cours...");
       const formData = new FormData();
 
       formData.append("title", data.title);
@@ -64,7 +66,7 @@ export function CreateProjectPage() {
         method: "POST",
         body: formData,
       });
-
+      setStatus("Projet ajouté avec succès !");
       toast.success("Projet ajouté !");
       navigate("/admin");
     } catch (error) {
