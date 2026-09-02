@@ -14,5 +14,27 @@ export default defineConfig({
     port: 5173, // Le port par défaut de Vite
     watch: {
       usePolling: true, // Force la détection des modifications de fichiers via Docker
-    }}
+    }
+  },
+  // 👇 AJOUT POUR L'OPTIMISATION DU SCORE LIGHTHOUSE 👇
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          // Isole React et React-DOM
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+            return 'vendor-react';
+          }
+          // Isole React Router
+          if (id.includes('node_modules/react-router-dom') || id.includes('node_modules/react-router')) {
+            return 'vendor-router';
+          }
+          // Isole React Hook Form (utilisé sur ta page CreateProjectPage)
+          if (id.includes('node_modules/react-hook-form')) {
+            return 'vendor-form';
+          }
+        },
+      },
+    },
+  }
 });
