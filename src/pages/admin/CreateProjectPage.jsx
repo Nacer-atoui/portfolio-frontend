@@ -340,6 +340,7 @@ export function CreateProjectPage() {
 
             <button
               type="submit"
+              disabled={status === "Enregistrement du projet en cours..."}
               className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm"
             >
               <span className="text-white text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
