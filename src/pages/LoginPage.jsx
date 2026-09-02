@@ -81,7 +81,7 @@ export function LoginPage() {
                   id="email"
                   placeholder="architect@devportfolio.com" 
                   className={`w-full pl-10 pr-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-stone-700 text-base font-normal font-['Atkinson Hyperlegible'] ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-stone-300 focus:ring-blue-950'}`}
-                  {...register("email", { required: true })}
+                  {...register("email", { required: "L'adresse e-mail est requise" })}
                 />
               </div>
               {errors.email && <span className="text-red-500 text-xs font-medium mt-1">L'adresse e-mail est requise</span>}
@@ -105,7 +105,7 @@ export function LoginPage() {
                   id="password"
                   placeholder="••••••••••••" 
                   className={`w-full pl-10 pr-4 py-3.5 bg-stone-50 rounded-sm border focus:outline-none focus:ring-2 transition-all text-stone-700 text-base font-normal font-['Atkinson Hyperlegible'] tracking-widest ${errors.password ? 'border-red-500 focus:ring-red-500' : 'border-stone-300 focus:ring-blue-950'}`}
-                  {...register("password", { required: true })}
+                  {...register("password", { required: "Le mot de passe est requis" })}
                 />
               </div>
               {errors.password && <span className="text-red-500 text-xs font-medium mt-1">Le mot de passe est requis</span>}
