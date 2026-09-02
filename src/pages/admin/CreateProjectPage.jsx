@@ -19,7 +19,7 @@ export function CreateProjectPage() {
       github_url: "",
       demo_url: "",
       stacks: [{ name: "", type: "", logo_url: "" }],
-      images: [{ file: null }], // On attend désormais un Fichier (File) à la place d'une URL texte
+      images: [{ file: null }], 
     },
   });
 
@@ -45,34 +45,23 @@ export function CreateProjectPage() {
 
   const handleSubmitForm = async (data) => {
     try {
-      // 1. Création de l'objet FormData requis pour envoyer des fichiers
       const formData = new FormData();
 
-      // 2. On ajoute les champs texte simples
       formData.append("title", data.title);
       formData.append("description", data.description);
       if (data.github_url) formData.append("github_url", data.github_url);
       if (data.demo_url) formData.append("demo_url", data.demo_url);
 
-      // 3. Les tableaux complexes (comme les stacks) doivent être sérialisés en JSON
       formData.append("stacks", JSON.stringify(data.stacks));
 
-      // 4. On ajoute les fichiers d'images réels au FormData
-      data.images.forEach((imgObj, index) => {
-        // imgObj.file est une FileList retournée par l'input file de React Hook Form
+      data.images.forEach((imgObj) => {
         if (imgObj.file && imgObj.file[0]) {
-          // On ajoute chaque fichier individuellement sous la clé "project_images"
           formData.append("image_url", imgObj.file[0]);
         }
       });
 
-      // 5. Envoi au Backend
-      // ATTENTION : Ne pas définir de "Content-Type" dans les headers, 
-      // le navigateur va automatiquement le configurer en "multipart/form-data" avec le bon boundary.
       await apiFetch("/projects", {
         method: "POST",
-        // Si ton hook `apiFetch` ajoute automatiquement "Content-Type: application/json", 
-        // assure-toi que ton hook permet de l'omettre ou de le surcharger lorsqu'on passe un FormData.
         body: formData,
       });
 
@@ -179,7 +168,7 @@ export function CreateProjectPage() {
             </div>
           </div>
 
-          {/* --- SECTION 2 : IMAGES (MODIFIÉE POUR INPUT FILE) --- */}
+          {/* --- SECTION 2 : IMAGES --- */}
           <div className="pt-8 border-t border-stone-300 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
               <h2 className="text-gray-950 text-xl font-bold font-['Atkinson Hyperlegible']">
@@ -193,11 +182,14 @@ export function CreateProjectPage() {
             {imageFields.map((item, index) => (
               <div key={item.id} className="flex gap-4 items-end">
                 <div className="flex-1 flex flex-col gap-2">
-                  <label htmlFor="image" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
+                  <label 
+                    htmlFor={`image-${index}`} 
+                    className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
+                  >
                     Fichier Image {index + 1} *
                   </label>
                   <input
-                    name="image"
+                    id={`image-${index}`}
                     type="file"
                     accept="image/*"
                     className="w-full px-3 py-2 bg-stone-50 rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950 text-sm text-gray-500
@@ -263,11 +255,14 @@ export function CreateProjectPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="stackname" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
+                    <label 
+                      htmlFor={`stackname-${index}`} 
+                      className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
+                    >
                       Nom *
                     </label>
                     <input
-                      name="stackname"
+                      id={`stackname-${index}`}
                       type="text"
                       className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
                       {...register(`stacks.${index}.name`, { required: true })}
@@ -280,11 +275,14 @@ export function CreateProjectPage() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="stacktype" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
+                    <label 
+                      htmlFor={`stacktype-${index}`} 
+                      className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
+                    >
                       Type *
                     </label>
                     <select
-                      name="stacktype"
+                      id={`stacktype-${index}`}
                       className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
                       {...register(`stacks.${index}.type`, { required: true })}
                     >
@@ -304,11 +302,14 @@ export function CreateProjectPage() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="urllogo" className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
+                  <label 
+                    htmlFor={`urllogo-${index}`} 
+                    className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
+                  >
                     URL du Logo
                   </label>
                   <input
-                    name="urllogo"
+                    id={`urllogo-${index}`}
                     type="url"
                     className="w-full px-3 py-2 bg-white rounded-sm border border-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
                     {...register(`stacks.${index}.logo_url`)}
