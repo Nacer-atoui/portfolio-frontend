@@ -346,7 +346,7 @@ export function CreateProjectPage() {
               <span className="text-white text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
                 Enregistrer le projet
               </span>
-              {status === "Enregistrement du projet en cours..." ? "Enregistrement du projet en cours..." : "Enregistrer le projet"}
+              
             </button>
 
                     {status && status !== "Enregistrement du projet en cours..." && (
