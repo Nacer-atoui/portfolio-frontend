@@ -19,7 +19,7 @@ export function CreateProjectPage() {
       github_url: "",
       demo_url: "",
       stacks: [{ name: "", type: "", logo_url: "" }],
-      images: [{ file: null }], 
+      images: [{ file: null }],
     },
   });
 
@@ -175,15 +175,16 @@ export function CreateProjectPage() {
                 Galerie d'images
               </h2>
               <p className="text-slate-600 text-sm font-normal font-['Atkinson Hyperlegible']">
-                Sélectionnez un fichier image local pour l'importer dans votre galerie.
+                Sélectionnez un fichier image local pour l'importer dans votre
+                galerie.
               </p>
             </div>
 
             {imageFields.map((item, index) => (
               <div key={item.id} className="flex gap-4 items-end">
                 <div className="flex-1 flex flex-col gap-2">
-                  <label 
-                    htmlFor={`image-${index}`} 
+                  <label
+                    htmlFor={`image-${index}`}
                     className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
                   >
                     Fichier Image {index + 1} *
@@ -255,8 +256,8 @@ export function CreateProjectPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div className="flex flex-col gap-2">
-                    <label 
-                      htmlFor={`stackname-${index}`} 
+                    <label
+                      htmlFor={`stackname-${index}`}
                       className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
                     >
                       Nom *
@@ -275,8 +276,8 @@ export function CreateProjectPage() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label 
-                      htmlFor={`stacktype-${index}`} 
+                    <label
+                      htmlFor={`stacktype-${index}`}
                       className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
                     >
                       Type *
@@ -302,8 +303,8 @@ export function CreateProjectPage() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label 
-                    htmlFor={`urllogo-${index}`} 
+                  <label
+                    htmlFor={`urllogo-${index}`}
                     className="text-zinc-700 text-xs font-bold font-['Atkinson Hyperlegible'] uppercase"
                   >
                     URL du Logo
@@ -341,19 +342,29 @@ export function CreateProjectPage() {
             <button
               type="submit"
               disabled={status === "Enregistrement du projet en cours..."}
-              className="px-6 py-3 bg-blue-950 hover:bg-blue-900 transition-colors rounded-sm"
+              // On peut même ajouter un style différent quand c'est désactivé (optionnel)
+              className={`px-6 py-3 transition-colors rounded-sm ${
+                status === "Enregistrement du projet en cours..."
+                  ? "bg-blue-900/70 cursor-not-allowed"
+                  : "bg-blue-950 hover:bg-blue-900"
+              }`}
             >
               <span className="text-white text-xs font-bold font-['Atkinson Hyperlegible'] uppercase">
-                Enregistrer le projet
+                {/* C'est ICI qu'on rend le texte dynamique */}
+                {status === "Enregistrement du projet en cours..."
+                  ? "Enregistrement en cours..."
+                  : "Enregistrer le projet"}
               </span>
-              
             </button>
 
-                    {status && status !== "Enregistrement du projet en cours..." && (
-          <p className={`w-full text-center text-sm font-medium mt-1 ${status.includes("succès") ? "text-green-600" : "text-red-500"}`}>
-            {status}
-          </p>
-        )}
+            {/* On simplifie la condition en dessous pour n'afficher que les succès ou erreurs */}
+            {status && status !== "Enregistrement du projet en cours..." && (
+              <p
+                className={`w-full text-center text-sm font-medium mt-1 ${status.includes("succès") ? "text-green-600" : "text-red-500"}`}
+              >
+                {status}
+              </p>
+            )}
           </div>
         </form>
       </div>
